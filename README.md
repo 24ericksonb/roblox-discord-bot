@@ -6,6 +6,8 @@
 
 ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white) 
 
+<img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/530a4637-13b9-43db-bf8f-a240140aef28" alt="Roblox" title="Roblox Bot" align="right" width="300"/>
+
 A Discord bot designed for early recruiting servers. 
 
 Last updated: **Nov 4th, 2023**
@@ -16,8 +18,9 @@ Last updated: **Nov 4th, 2023**
 
 ## Commands
 
+<img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/2a94a698-97cc-4194-b03d-7d46d3cb140f" alt="Roblox" title="Roblox Bot" align="right" width="300"/>
+
 ### `/approve <member> <name>` (Admin only)
-<img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/f220bcf6-8b4e-43b4-a9b8-ba83a7dc638b" alt="Roblox" title="Roblox Bot" align="right" />
 
 This command verifies specified members by:
 
@@ -25,6 +28,8 @@ This command verifies specified members by:
 2. Removing "Not Verified" role
 3. Changing server name to full name
 4. Direct messages the member about successful verification
+
+<img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/be9dd0ab-b237-4f5e-8365-43c833204bdd" alt="Roblox" title="Roblox Bot" align="right" width="300"/>
 
 ### `/reject <member>` (Admin only)
 
