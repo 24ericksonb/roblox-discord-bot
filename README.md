@@ -6,7 +6,7 @@
 
 <img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/530a4637-13b9-43db-bf8f-a240140aef28" alt="Roblox" title="Roblox Bot" align="right" width="300"/>
 
-A Discord bot designed for early recruiting servers. 
+A Discord bot designed for Roblox's early recruiting server. 
 
 Last updated: **Nov 4th, 2023**
 
