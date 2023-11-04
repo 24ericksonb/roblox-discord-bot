@@ -4,8 +4,14 @@ const path = require("node:path");
 
 require("dotenv").config();
 
-const discordToken = process.env.DISCORD_TOKEN || "";
-const clientId = process.env.CLIENT_ID || "";
+const discordToken = process.env.DISCORD_TOKEN;
+const clientId = process.env.CLIENT_ID;
+const guildId = process.env.GUILD_ID;
+
+if (!(discordToken && clientId && guildId)) {
+	console.error('One of the tokens/ids are undefined...');
+	process.exit(1);
+}
 
 const commands = [];
 
@@ -39,13 +45,13 @@ const rest = new REST().setToken(discordToken);
       `Started refreshing ${commands.length} application (/) commands.`
     );
 
-    const data = await rest.put(Routes.applicationCommands(clientId), {
-      body: commands,
-    });
+		const data = await rest.put(Routes.applicationCommands(clientId, guildId), {
+			body: commands,
+		});
 
-    console.log(
-      `Successfully reloaded ${data.length} application (/) commands.`
-    );
+		console.log(
+			`Successfully reloaded ${data.length} application (/) commands.`
+		);
   } catch (error) {
     console.error(error);
   }
