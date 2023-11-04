@@ -110,5 +110,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 **Bryce Erickson**
 
-- Email: berickson@roblox.com
 - GitHub: [24ericksonb](https://github.com/24ericksonb)
