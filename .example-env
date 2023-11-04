@@ -1,4 +1,8 @@
 # replace with valid keys
+
+# global vars
 DISCORD_TOKEN=XXXXXXX
-CLIENT_ID=XXXXXXX
+DISCORD_CLIENT_ID=XXXXXXX
+
+# server vars
 GUILD_ID=XXXXXXX

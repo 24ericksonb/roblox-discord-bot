@@ -1,4 +1,4 @@
-import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
+import { Client, Collection, Events, GatewayIntentBits, ActivityType } from "discord.js";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -34,7 +34,7 @@ for (const folder of commandFolders) {
       client.commands.set(command.data.name, command);
     } else {
       console.log(
-        `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
+        `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
       );
     }
   }
@@ -43,6 +43,16 @@ for (const folder of commandFolders) {
 // ACTION READY EVENT
 client.once(Events.ClientReady, (c: any) => {
   console.log(`Ready! Logged in as ${c.user.tag}`);
+  
+  client.user?.setPresence({
+    activities: [
+      {
+        name: `in the Metaverse`,
+        type: ActivityType.Playing,
+      },
+    ],
+    status: "online",
+  });
 });
 
 // ACTION COMMAND EXECUTER

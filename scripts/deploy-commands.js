@@ -5,7 +5,7 @@ const path = require("node:path");
 require("dotenv").config();
 
 const discordToken = process.env.DISCORD_TOKEN;
-const clientId = process.env.CLIENT_ID;
+const clientId = process.env.DISCORD_CLIENT_ID;
 const guildId = process.env.GUILD_ID;
 
 if (!(discordToken && clientId && guildId)) {
