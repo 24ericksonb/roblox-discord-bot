@@ -6,8 +6,10 @@ import {
   PermissionFlagsBits,
   Role,
   SlashCommandBuilder,
+  User,
 } from "discord.js";
-import { getOptionValue, getRole } from "../../utils/discord";
+import { getBaseEmbed, getOptionValue, getRole } from "../../utils/discord";
+import { UNVERIFIED_ROLE, VERIFIED_ROLE } from "../../constants";
 
 const data = new SlashCommandBuilder()
   .setName("approve")
@@ -27,25 +29,50 @@ const data = new SlashCommandBuilder()
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
 async function execute(interaction: CommandInteraction) {
+  const member = interaction.options.getMember("member") as GuildMember;
+  const caller = interaction.member?.user as User;
+
   try {
     const guild = interaction.guild as Guild;
-    const role = (await getRole(guild, "Verified")) as Role;
-    const member = interaction.options.getMember("member") as GuildMember;
+    const verifiedRole = (await getRole(guild, VERIFIED_ROLE)) as Role;
+    const unverifiedRole = (await getRole(guild, UNVERIFIED_ROLE)) as Role;
     const name = getOptionValue(interaction.options, "name") as string;
 
     await member.setNickname(name);
 
-    if (member.roles.cache.some((role) => role.name === "Verified")) {
-      interaction.reply(`${member} is already verified.`);
-    } else {
-      await (member.roles as GuildMemberRoleManager).add(role);
-      await member.user.send("You have be sucessfully verified!");
-
-      interaction.reply(`You have successfully verifed ${member}.`);
+    if (member.roles.cache.some((role) => role.name === UNVERIFIED_ROLE)) {
+      await (member.roles as GuildMemberRoleManager).remove(unverifiedRole);
     }
+
+    if (!member.roles.cache.some((role) => role.name === VERIFIED_ROLE)) {
+      await (member.roles as GuildMemberRoleManager).add(verifiedRole);
+
+      const applicantMessage = getBaseEmbed(
+        "Verification Successful",
+        "You have be sucessfully verified!",
+        caller,
+      );
+
+      await member.user.send({ embeds: [applicantMessage] });
+    }
+
+    const responseMessage = getBaseEmbed(
+      "Approval Successful",
+      `${member} was successfully verified.`,
+      caller,
+    );
+
+    interaction.reply({ embeds: [responseMessage] });
   } catch (error) {
     console.error(error);
-    interaction.reply(`Something went wrong. Please try again later...`);
+
+    const message = getBaseEmbed(
+      "Approval Failed",
+      "An error occured. Please try again later...",
+      caller,
+    );
+
+    interaction.reply({ embeds: [message] });
   }
 }
 
