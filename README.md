@@ -108,6 +108,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Author
 
-**Bryce Erickson**
+**Bryce Erickson** | CS @ Northeastern University | Software Engineer @ Roblox
 
 - GitHub: [24ericksonb](https://github.com/24ericksonb)
