@@ -14,7 +14,7 @@ A Discord bot designed for early recruiting servers. Last updated: Nov 4th, 2023
 
 ## Commands
 
-### Approve: `/approve <member> <name>` (Admin only)
+### `/approve <member> <name>` (Admin only)
 
 This command verifies specified members by:
 
@@ -23,7 +23,7 @@ This command verifies specified members by:
 3. Changing server name to full name
 4. Direct messages the member about successful verification
 
-### Reject: `/reject <member>` (Admin only)
+### `/reject <member>` (Admin only)
 
 This command rejects the verfification of a specified member by:
 
@@ -31,7 +31,7 @@ This command rejects the verfification of a specified member by:
 2. Removing "Verified" role
 3. Direct message the member about failed verification
 
-### Roll: `/roll` (Everyone)
+### `/roll` (Everyone)
 
 This command is used to test the bot's commands by rolling a random number between 1-100.
 
