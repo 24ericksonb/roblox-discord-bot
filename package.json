@@ -22,7 +22,6 @@
   "homepage": "https://github.com/24ericksonb/roblox-discord-bot#readme",
   "devDependencies": {
     "@tsconfig/node18": "^18.2.2",
-    "@types/jest": "^29.5.7",
     "@types/node": "^20.8.10",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
     "@typescript-eslint/parser": "^6.9.1",
@@ -35,7 +34,6 @@
     "eslint-plugin-n": "^16.2.0",
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-promise": "^6.1.1",
-    "jest": "^29.7.0",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
     "rimraf": "^5.0.5",
