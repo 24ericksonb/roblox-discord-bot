@@ -1,6 +1,4 @@
-![example workflow](https://github.com/24ericksonb/roblox-discord-bot/actions/workflows/main.yml/badge.svg)
-
-![image](https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/4e30a17d-3774-4d54-b48e-82f923f11743)
+![image](https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/7c48eb63-fa40-41ce-9410-3282088db010)
 
 # Roblox Discord Bot
 
