@@ -5,7 +5,6 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "tsc && node scripts/clean-dist.js && node dist/index.js",
-    "test": "jest --passWithNoTests",
     "lint": "eslint 'src/**/*.{js,ts}'",
     "dev": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'tsc && node scripts/clean-dist.js && node dist/index.js'",
     "update": "tsc && node scripts/clean-dist.js && node scripts/deploy-commands.js"
