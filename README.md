@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/liyasthomas/banner.svg?branch=master)](https://travis-ci.com/liyasthomas/banner) [![GitHub release](https://img.shields.io/github/release/liyasthomas/banner/all.svg)](https://github.com/liyasthomas/banner/releases/latest) [![repo size](https://img.shields.io/github/repo-size/liyasthomas/banner.svg)](https://github.com/liyasthomas/banner/archive/master.zip) [![license](https://img.shields.io/github/license/liyasthomas/banner.svg)](https://github.com/liyasthomas/banner/blob/master/LICENSE) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/liyasthomas/banner/issues) [![Website](https://img.shields.io/website-up-down-green-red/https/shields.io.svg?label=website)](https://liyas-thomas.firebaseapp.com) [![Donate](https://img.shields.io/badge/$-donate-ff69b4.svg)](https://www.paypal.me/liyascthomas)
+![example workflow](https://github.com/24ericksonb/roblox-discord-bot/actions/workflows/main.yml/badge.svg)
 
 # Roblox Discord Bot
 
