@@ -18,7 +18,6 @@ Last updated: **Nov 4th, 2023**
 
 ### `/approve <member> <name>` (Admin only)
 <img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/f220bcf6-8b4e-43b4-a9b8-ba83a7dc638b" alt="Roblox" title="Roblox Bot" align="right" />
-![image](https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/f220bcf6-8b4e-43b4-a9b8-ba83a7dc638b)
 
 This command verifies specified members by:
 
