@@ -67,10 +67,10 @@ This command is used to test the bot's commands by rolling a random number betwe
     ```bash
     cp .example-env .env
     ```
-    Replace all "XXXXXXX" with correct values.
+    Replace all `XXXXXXX` with correct values.
 
-    - DISCORD_TOKEN & DISCORD_CLIENT_ID: The Discord bot token and client ID which can be found [here](https://discord.com/developers/applications)!
-    - GUILD_ID: The Discord server ID ([instructions](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-#:~:text=Obtaining%20Server%20IDs%20%2D%20Mobile%20App,name%20and%20select%20Copy%20ID.))
+    - `DISCORD_TOKEN` & `DISCORD_CLIENT_ID`: The Discord bot token and client ID which can be found [here](https://discord.com/developers/applications)!
+    - `GUILD_ID`: The Discord server ID ([instructions](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-#:~:text=Obtaining%20Server%20IDs%20%2D%20Mobile%20App,name%20and%20select%20Copy%20ID.))
 
 ### Usage
 
