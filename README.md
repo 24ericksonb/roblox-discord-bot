@@ -39,20 +39,12 @@ This command rejects the verfification of a specified member by:
 
 
 ### Dynamic Bot Status
-<table>
-<tr>
-<td>
 
 If `GOOGLE_FORM_UPDATES` is set to `1`, the bots status will be updated with the current amount of members waiting to be verified every set interval (see bottom picture). It uses Google Forms API to query the verification form and retrieves the current amount of responses. The verifier will have to delete the verification responses as they process them for this to work efficently. If `GOOGLE_FORM_UPDATES`is set to `0`, it will display a static message (see top picture).
 
-</td>
-<td width="300">
-
-![image](https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/53be0942-e6d0-4c35-80f0-e89e0a9d8788)
-
-</td>
-</tr>
-</table>
+<div align="center">
+  <img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/53be0942-e6d0-4c35-80f0-e89e0a9d8788" alt="Roblox" title="Roblox Bot" width="300"/>
+</div>
 
 ## Getting Started
 
