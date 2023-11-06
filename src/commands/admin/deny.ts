@@ -9,7 +9,7 @@ import {
   User,
 } from "discord.js";
 import { getBaseEmbed, getRole } from "../../utils/discord";
-import { UNVERIFIED_ROLE, VERIFIED_ROLE } from "../../constants";
+import { ROLES } from "../../constants";
 
 const data = new SlashCommandBuilder()
   .setName("reject")
@@ -28,14 +28,14 @@ async function execute(interaction: CommandInteraction) {
 
   try {
     const guild = interaction.guild as Guild;
-    const verifiedRole = (await getRole(guild, VERIFIED_ROLE)) as Role;
-    const unverifiedRole = (await getRole(guild, UNVERIFIED_ROLE)) as Role;
+    const verifiedRole = (await getRole(guild, ROLES.VERIFIED)) as Role;
+    const unverifiedRole = (await getRole(guild, ROLES.UNVERIFIED)) as Role;
 
-    if (member.roles.cache.some((role) => role.name === VERIFIED_ROLE)) {
+    if (member.roles.cache.some((role) => role.name === ROLES.VERIFIED)) {
       await (member.roles as GuildMemberRoleManager).remove(verifiedRole);
     }
 
-    if (!member.roles.cache.some((role) => role.name === UNVERIFIED_ROLE)) {
+    if (!member.roles.cache.some((role) => role.name === ROLES.UNVERIFIED)) {
       await (member.roles as GuildMemberRoleManager).add(unverifiedRole);
     }
 

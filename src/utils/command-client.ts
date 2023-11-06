@@ -7,6 +7,8 @@ import {
 } from "discord.js";
 import fs from "node:fs";
 import path from "node:path";
+import { getFormResponseNumber } from "./google-forms";
+import { GOOGLE_FORM_UPDATES, STATUS_UPDATE_INTERVAL } from "../constants";
 
 export default class CommandClient extends Client<boolean> {
   commands: Collection<any, any>;
@@ -44,8 +46,26 @@ export default class CommandClient extends Client<boolean> {
   }
 
   setStatus() {
-    this.once(Events.ClientReady, (c: any) => {
-      c.user.setPresence({
+    const updateFormsStatus = async () => {
+      try {
+        const numResponses = await getFormResponseNumber();
+        const status = numResponses === 1 ? "Member" : "Members";
+        this.user?.setPresence({
+          activities: [
+            {
+              name: `Verifying ${numResponses} ${status}!`,
+              type: ActivityType.Custom,
+            },
+          ],
+          status: "online",
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const updateBaseStatus = async () => {
+      this.user?.setPresence({
         activities: [
           {
             name: `in the Metaverse!`,
@@ -54,6 +74,15 @@ export default class CommandClient extends Client<boolean> {
         ],
         status: "online",
       });
+    };
+
+    this.once(Events.ClientReady, () => {
+      if (GOOGLE_FORM_UPDATES) {
+        updateFormsStatus();
+        setInterval(updateFormsStatus, STATUS_UPDATE_INTERVAL * 60 * 1000);
+      } else {
+        updateBaseStatus();
+      }
     });
   }
 

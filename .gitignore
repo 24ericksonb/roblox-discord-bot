@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # custom
-credentials.json
+google-credentials.json
