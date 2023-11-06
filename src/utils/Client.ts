@@ -48,7 +48,7 @@ export default class CommandClient extends Client<boolean> {
       c.user.setPresence({
         activities: [
           {
-            name: `testing!`,
+            name: `in the Metaverse!`,
             type: ActivityType.Playing,
           },
         ],
