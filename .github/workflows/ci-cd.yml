@@ -32,10 +32,16 @@ jobs:
 
       - name: Run npm start and check for errors
         run: |
-          npm start
-          if [ $? -ne 0 ]; then
+          timeout --preserve-status 20 npm start
+          EXIT_STATUS=$?
+
+          if [ $EXIT_STATUS -eq 124 ]; then
+            echo "npm start timed out after 20 seconds"
+          elif [ $EXIT_STATUS -ne 0 ]; then
             echo "npm start failed with an error"
             exit 1
+          else
+            echo "npm start ran successfully for at least 20 seconds"
           fi
 
   deploy:
