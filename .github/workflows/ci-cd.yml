@@ -3,7 +3,7 @@ name: Continuous Integration and Deployment
 on:
   push:
     branches:
-      - main 
+      - '*' 
 
 jobs:
   checks:
@@ -27,6 +27,7 @@ jobs:
   deploy:
     name: Deploy to production server
     needs: checks
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
