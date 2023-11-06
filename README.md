@@ -4,8 +4,6 @@
 
 ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white) 
 
-<img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/530a4637-13b9-43db-bf8f-a240140aef28" alt="Roblox" title="Roblox Bot" align="right" width="300"/>
-
 A Discord bot designed for Roblox's early recruiting server. 
 
 Last updated: **Nov 4th, 2023**
@@ -43,7 +41,9 @@ This command is used to test the bot's commands by rolling a random number betwe
 
 ## Extra Features
 
-If set up, the bots status will update with the current amount of members waiting to be verified. It uses Google Forms API to query a specified form and retrieves the current amount of responses.
+If `GOOGLE_FORM_UPDATES` is set to `1`, the bots status will be updated with the current amount of members waiting to be verified every set interval (see bottom picture). It uses Google Forms API to query the verification form and retrieves the current amount of responses. The verifier will have to delete the verification responses as they process them for this to work efficently. If `GOOGLE_FORM_UPDATES`is set to `0`, it will display a static message (see top picture).
+
+<img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/53be0942-e6d0-4c35-80f0-e89e0a9d8788" alt="Roblox" title="Roblox Bot" width="300"/>
 
 ## Getting Started
 
@@ -80,10 +80,9 @@ If set up, the bots status will update with the current amount of members waitin
     - `FORM_ID`: The verification Google Form id
         - Located in the URL: docs.google.com/forms/d/**\<FORM_ID\>**/edit
     - `GOOGLE_FORM_UPDATES`: Bot's status boolean
-        - Set to `1` if you want the bot's status to display the current number of members waiting to be verified in the Google Form.
-        - If not, set to `0` to display a static message. 
-    
-        Refer to [Features](#extra-features) sections to see the difference.
+        - Refer to [Features](#extra-features) sections to see the difference.
+    - `STATUS_UPDATE_IN_MINUTES`: The interval (in minutes) at which the status is updated
+        - This only has an affect if `GOOGLE_FORM_UPDATES` is set to `1`
 
 4. (_Optional_) Set up Google Cloud service account:
 
