@@ -2,6 +2,7 @@ import { EmbedBuilder, Guild, User } from "discord.js";
 
 export async function getRole(guild: Guild, name: string) {
   const roles = await guild.roles.fetch();
+  console.log(roles);
   const role = roles?.find((r) => r.name === name);
   return role;
 }

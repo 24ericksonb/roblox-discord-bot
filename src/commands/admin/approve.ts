@@ -37,7 +37,7 @@ async function execute(interaction: CommandInteraction) {
     const verifiedRole = (await getRole(guild, VERIFIED_ROLE)) as Role;
     const unverifiedRole = (await getRole(guild, UNVERIFIED_ROLE)) as Role;
     const name = getOptionValue(interaction.options, "name") as string;
-
+    console.log(guild);
     await member.setNickname(name);
 
     if (member.roles.cache.some((role) => role.name === UNVERIFIED_ROLE)) {

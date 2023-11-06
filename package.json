@@ -4,7 +4,7 @@
   "description": "A Discord bot for early recruiting server.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "tsc && node scripts/clean-dist.js && node dist/index.js",
+    "start": "npm run update && node dist/index.js",
     "lint": "eslint 'src/**/*.{js,ts}'",
     "dev": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'tsc && node scripts/clean-dist.js && node dist/index.js'",
     "update": "tsc && node scripts/clean-dist.js && node scripts/deploy-commands.js"
@@ -34,6 +34,7 @@
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-promise": "^6.1.1",
     "nodemon": "^3.0.1",
+    "pm2": "^5.3.0",
     "prettier": "^3.0.3",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.1",
