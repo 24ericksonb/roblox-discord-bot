@@ -2,7 +2,7 @@
 
 # Roblox Discord Bot (Work in progress)
 
-![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white) 
+![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white) 
 
 <img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/530a4637-13b9-43db-bf8f-a240140aef28" alt="Roblox" title="Roblox Bot" align="right" width="300"/>
 
@@ -41,6 +41,10 @@ This command rejects the verfification of a specified member by:
 
 This command is used to test the bot's commands by rolling a random number between 1-100.
 
+## Extra Features
+
+If set up, the bots status will update with the current amount of members waiting to be verified. It uses Google Forms API to query a specified form and retrieves the current amount of responses.
+
 ## Getting Started
 
 ### Prerequisites
@@ -69,8 +73,25 @@ This command is used to test the bot's commands by rolling a random number betwe
     ```
     Replace all `XXXXXXX` with correct values.
 
-    - `DISCORD_TOKEN` & `DISCORD_CLIENT_ID`: The Discord bot token and client ID which can be found [here](https://discord.com/developers/applications)!
-    - `GUILD_ID`: The Discord server ID ([instructions](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-#:~:text=Obtaining%20Server%20IDs%20%2D%20Mobile%20App,name%20and%20select%20Copy%20ID.))
+    - `DISCORD_TOKEN` & `DISCORD_CLIENT_ID`: The Discord bot token and client ID which 
+        - Can be found [here](https://discord.com/developers/applications)
+    - `GUILD_ID`: The Discord server ID 
+        - [Instructions](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-#:~:text=Obtaining%20Server%20IDs%20%2D%20Mobile%20App,name%20and%20select%20Copy%20ID.) to find server ID
+    - `FORM_ID`: The verification Google Form id
+        - Located in the URL: docs.google.com/forms/d/**\<FORM_ID\>**/edit
+    - `GOOGLE_FORM_UPDATES`: Bot's status boolean
+        - Set to `1` if you want the bot's status to display the current number of members waiting to be verified in the Google Form.
+        - If not, set to `0` to display a static message. 
+    
+        Refer to [Features](#extra-features) sections to see the difference.
+
+4. (_Optional_) Set up Google Cloud service account:
+
+    If you would want live updates of how many users are currently waiting to be verified (ie `GOOGLE_FORM_UPDATES` is set to `1`), please set up a Google Cloud service account by follow these [instructions](https://developers.google.com/workspace/guides/create-credentials#create_a_service_account).
+
+    An example of the format of the service account credential file is located in `example-google-credentials.json` (rename the file to `google-credentials.json`).
+
+    **IMPORTANT:** Make sure to share Editor access of the verification form to your service account.
 
 ### Usage
 
@@ -80,13 +101,17 @@ This command is used to test the bot's commands by rolling a random number betwe
     npm start
     ```
 
-- To start the bot in development mode:
+- To start the bot in development mode (checks for file changes):
 
     ```bash
     npm run dev
     ```
 
-    Automatically recompiles code with file changes.
+- Compile and clean up `dist` directory of stale files:
+
+    ```bash
+    npm run build
+    ```
 
 - To lint the code:
 
@@ -94,13 +119,11 @@ This command is used to test the bot's commands by rolling a random number betwe
     npm run lint
     ```
 
-- To update slash command definitions:
+- To update slash command definitions (only call when updating definitions):
 
     ```bash
     npm run update
     ```
-
-    Only run this when updating the definitions as Discord rate limits this API call.
 
 ## License
 
@@ -108,6 +131,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Author
 
-**Bryce Erickson** | CS @ Northeastern University | Software Engineer @ Roblox
+**Bryce Erickson** | CS @ Northeastern University
 
 - GitHub: [24ericksonb](https://github.com/24ericksonb)

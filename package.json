@@ -4,10 +4,11 @@
   "description": "A Discord bot for early recruiting server.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run update && node dist/index.js",
+    "start": "npm run build && npm run update && node dist/index.js",
     "lint": "eslint 'src/**/*.{js,ts}'",
-    "dev": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'tsc && node scripts/clean-dist.js && node dist/index.js'",
-    "update": "tsc && node scripts/clean-dist.js && node scripts/deploy-commands.js"
+    "dev": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'npm run build && node dist/index.js'",
+    "build": "tsc && node scripts/clean-dist.js",
+    "update": "node scripts/deploy-commands.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/24ericksonb/roblox-discord-bot#readme",
   "devDependencies": {
+    "@googleapis/forms": "^2.0.5",
     "@tsconfig/node18": "^18.2.2",
     "@types/node": "^20.8.10",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
@@ -33,6 +35,7 @@
     "eslint-plugin-n": "^16.2.0",
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-promise": "^6.1.1",
+    "google-auth-library": "^9.2.0",
     "nodemon": "^3.0.1",
     "pm2": "^5.3.0",
     "prettier": "^3.0.3",
@@ -40,15 +43,8 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ]
-  },
   "dependencies": {
+    "googleapis": "^128.0.0",
     "install": "^0.13.0",
     "npm": "^10.2.3"
   }

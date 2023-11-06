@@ -9,7 +9,7 @@ import {
   User,
 } from "discord.js";
 import { getBaseEmbed, getOptionValue, getRole } from "../../utils/discord";
-import { UNVERIFIED_ROLE, VERIFIED_ROLE } from "../../constants";
+import { ROLES } from "../../constants";
 
 const data = new SlashCommandBuilder()
   .setName("approve")
@@ -34,17 +34,17 @@ async function execute(interaction: CommandInteraction) {
 
   try {
     const guild = interaction.guild as Guild;
-    const verifiedRole = (await getRole(guild, VERIFIED_ROLE)) as Role;
-    const unverifiedRole = (await getRole(guild, UNVERIFIED_ROLE)) as Role;
+    const verifiedRole = (await getRole(guild, ROLES.VERIFIED)) as Role;
+    const unverifiedRole = (await getRole(guild, ROLES.UNVERIFIED)) as Role;
     const name = getOptionValue(interaction.options, "name") as string;
     console.log(guild);
     await member.setNickname(name);
 
-    if (member.roles.cache.some((role) => role.name === UNVERIFIED_ROLE)) {
+    if (member.roles.cache.some((role) => role.name === ROLES.UNVERIFIED)) {
       await (member.roles as GuildMemberRoleManager).remove(unverifiedRole);
     }
 
-    if (!member.roles.cache.some((role) => role.name === VERIFIED_ROLE)) {
+    if (!member.roles.cache.some((role) => role.name === ROLES.VERIFIED)) {
       await (member.roles as GuildMemberRoleManager).add(verifiedRole);
 
       const applicantMessage = getBaseEmbed(

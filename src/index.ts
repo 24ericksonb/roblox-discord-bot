@@ -1,9 +1,6 @@
 import { Events, GatewayIntentBits } from "discord.js";
-import CommandClient from "./utils/Client";
-
-require("dotenv").config();
-
-const discordToken: string = process.env.DISCORD_TOKEN || "";
+import CommandClient from "./utils/command-client";
+import { DISCORD_TOKEN } from "./constants";
 
 const client = new CommandClient({
   intents: [
@@ -18,4 +15,4 @@ client.once(Events.ClientReady, (c: any) => {
   console.log(`Ready! Logged in as ${c.user.tag}`);
 });
 
-client.login(discordToken);
+client.login(DISCORD_TOKEN);
