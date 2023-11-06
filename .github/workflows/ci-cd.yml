@@ -21,6 +21,12 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
+      - name: Create .env file
+        run: |
+          echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}" > .env
+          echo "DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}" >> .env
+          echo "GUILD_ID=${{ secrets.GUILD_ID }}" >> .env
+
       - name: Run eslint
         run: npm run lint
 
