@@ -19,3 +19,5 @@ client.once(Events.ClientReady, (c: any) => {
 });
 
 client.login(discordToken);
+
+throw Error("test");

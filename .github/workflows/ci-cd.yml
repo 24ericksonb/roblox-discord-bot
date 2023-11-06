@@ -24,6 +24,14 @@ jobs:
       - name: Run eslint
         run: npm run lint
 
+      - name: Run npm start and check for errors
+        run: |
+          npm start
+          if [ $? -ne 0 ]; then
+            echo "npm start failed with an error"
+            exit 1
+          fi
+
   deploy:
     name: Deploy to production server
     needs: checks
