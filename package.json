@@ -4,11 +4,11 @@
   "description": "A Discord bot for early recruiting server.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run build && npm run update && node dist/index.js",
+    "start": "npm run build && npm run sync && node dist/index.js",
     "lint": "eslint 'src/**/*.{js,ts}'",
     "dev": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'npm run build && node dist/index.js'",
     "build": "tsc && node scripts/clean-dist.js",
-    "update": "node scripts/deploy-commands.js"
+    "sync": "node scripts/deploy-commands.js"
   },
   "repository": {
     "type": "git",

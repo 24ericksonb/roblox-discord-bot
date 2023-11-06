@@ -89,7 +89,7 @@ If `GOOGLE_FORM_UPDATES` is set to `1`, the bots status will be updated with the
     - `FORM_ID`: The verification Google Form id
         - Located in the URL: docs.google.com/forms/d/**\<FORM_ID\>**/edit
     - `GOOGLE_FORM_UPDATES`: Bot's status boolean
-        - Refer to [Features](#extra-features) sections to see the difference.
+        - Refer to "[Dynamic Bot Status](#dynamic-bot-status)" sections to see the difference.
     - `STATUS_UPDATE_IN_MINUTES`: The interval (in minutes) at which the status is updated
         - This only has an affect if `GOOGLE_FORM_UPDATES` is set to `1`
 
@@ -127,10 +127,10 @@ If `GOOGLE_FORM_UPDATES` is set to `1`, the bots status will be updated with the
     npm run lint
     ```
 
-- To update slash command definitions (only call when updating definitions):
+- To sync slash command definitions with Discord:
 
     ```bash
-    npm run update
+    npm run sync
     ```
 
 ## License
