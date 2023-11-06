@@ -47,6 +47,7 @@ jobs:
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} 'bash -s' << 'EOF'
           cd ~/roblox-discord-bot
+          git reset --hard origin/main
           git pull origin main
           npm install
           pm2 restart roblox-bot
