@@ -26,8 +26,9 @@ jobs:
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << 'EOF'
           cd ~/roblox-discord-bot
-          ifconfig
-          pwd
+          git pull origin main
+          npm install
+          pm2 restart roblox-bot
           EOF
         env:
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
