@@ -35,12 +35,10 @@ This command rejects the verfification of a specified member by:
 2. Removing "Verified" role
 3. Direct message the member about failed verification
 
-### `/roll` (Everyone)
-
-This command is used to test the bot's commands by rolling a random number between 1-100.
-
 ## Extra Features
 
+
+### Dynamic Bot Status
 <table>
 <tr>
 <td>
