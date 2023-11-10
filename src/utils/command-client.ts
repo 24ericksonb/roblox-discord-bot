@@ -21,7 +21,7 @@ export default class CommandClient extends Client<boolean> {
     this.handleCommands();
   }
 
-  loadCommands() {
+  private loadCommands() {
     const foldersPath = path.join(__dirname, "..", "commands");
     const commandFolders = fs.readdirSync(foldersPath);
 
@@ -45,25 +45,7 @@ export default class CommandClient extends Client<boolean> {
     }
   }
 
-  setStatus() {
-    const updateFormsStatus = async () => {
-      try {
-        const numResponses = await getFormResponseNumber();
-        const status = numResponses === 1 ? "Member" : "Members";
-        this.user?.setPresence({
-          activities: [
-            {
-              name: `Verifying ${numResponses} ${status}!`,
-              type: ActivityType.Custom,
-            },
-          ],
-          status: "online",
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
+  private setStatus() {
     const updateBaseStatus = async () => {
       this.user?.setPresence({
         activities: [
@@ -76,6 +58,30 @@ export default class CommandClient extends Client<boolean> {
       });
     };
 
+    const updateFormsStatus = async () => {
+      try {
+        const numResponses = await getFormResponseNumber();
+
+        if (numResponses === 0) {
+          updateBaseStatus();
+        } else {
+          const status = numResponses === 1 ? "Member" : "Members";
+
+          this.user?.setPresence({
+            activities: [
+              {
+                name: `Verifying ${numResponses} ${status}!`,
+                type: ActivityType.Custom,
+              },
+            ],
+            status: "online",
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     this.once(Events.ClientReady, () => {
       if (GOOGLE_FORM_UPDATES) {
         updateFormsStatus();
@@ -86,7 +92,7 @@ export default class CommandClient extends Client<boolean> {
     });
   }
 
-  handleCommands() {
+  private handleCommands() {
     this.on(Events.InteractionCreate, async (interaction) => {
       if (!interaction.isChatInputCommand()) return;
 
