@@ -6,7 +6,7 @@ const data = new SlashCommandBuilder()
 
 async function execute(interaction: CommandInteraction) {
   const number = Math.floor(Math.random() * 100) + 1;
-  await interaction.reply(`${interaction.member} rolled ${number}!`);
+  return await interaction.reply(`${interaction.member} rolled ${number}!`);
 }
 
 export { data, execute };
