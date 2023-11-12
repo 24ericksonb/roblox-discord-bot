@@ -11,5 +11,6 @@ export const DOMAIN_REGEX = /^\*\.[a-zA-Z]{2,}|(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$
 export const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export const PENDING_EXPIRATION = config.pendingExpiration;
-export const MAX_PENDING_ALLOWED = config.maxPendingAllowed;
 export const MAX_ATTEMPTS = config.maxAttempts;
+
+export const VERIFIED_ROLE = "Verified";

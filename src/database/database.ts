@@ -42,12 +42,8 @@ export class DiscordDatabase {
     return await Pending.findAll();
   }
 
-  public async getPending(userId: string): Promise<Pending[]> {
-    return await Pending.findAll({ where: { userId } });
-  }
-
-  public async getPendingEmail(email: string, userId: string): Promise<Pending | null> {
-    return await Pending.findOne({ where: { userId, email } });
+  public async getPending(userId: string): Promise<Pending | null> {
+    return await Pending.findOne({ where: { userId } });
   }
 
   public async incrementAttempts(id: number): Promise<void> {

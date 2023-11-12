@@ -1,7 +1,7 @@
-import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, Guild, GuildMember, Role, SlashCommandBuilder } from "discord.js";
 import { DiscordDatabase } from "../../database/database";
-import { generateEmbed, generateErrorEmbed } from "../../utils/discord";
-import { EMAIL_REGEX, MAX_PENDING_ALLOWED } from "../../constants";
+import { generateEmbed, generateErrorEmbed, getRole } from "../../utils/discord";
+import { EMAIL_REGEX, VERIFIED_ROLE } from "../../constants";
 import { domainMatches } from "../../utils/general";
 import { cleanUpPending } from "../../utils/database";
 
@@ -20,37 +20,59 @@ async function execute(interaction: CommandInteraction) {
   const email = interaction.options.get("email")?.value?.toString();
   const userId = interaction.user.id;
   const db = DiscordDatabase.getInstance();
+  const guild = interaction.guild as Guild;
+  const member = interaction.member as GuildMember;
 
   if (email) {
     try {
       // clean up expired entries
       cleanUpPending();
 
-      // checks if already awaiting verification
-      if (await db.getPendingEmail(email, userId)) {
+      const role = await getRole(guild, VERIFIED_ROLE);
+
+      // checks for verified role
+      if (member.roles.cache.some((e: Role) => e === role)) {
         return await interaction.reply({
           embeds: [
             generateEmbed(botUser)
-              .setTitle("Awaiting Verification")
-              .setDescription(
-                `This email is already awaiting verification.\n\nIf you don't see anything, please check your spam folder.`,
-              ),
+              .setTitle("Already Verified")
+              .setDescription(`You already have the ${role} role!`),
           ],
+          ephemeral: true,
         });
       }
 
-      // checks if user has multiple verfications going
-      const userPending = await db.getPending(userId);
-      if (userPending.length >= MAX_PENDING_ALLOWED) {
-        return await interaction.reply({
-          embeds: [
-            generateEmbed(botUser)
-              .setTitle("Verification Limit Reached")
-              .setDescription(
-                `You currently have ${userPending.length} pending verifications.\n\nPlease wait until one or more expires.`,
-              ),
-          ],
-        });
+      // gets current pending
+      const pending = await db.getPending(userId);
+
+      // checks if user has an email pending
+      if (pending) {
+        // email is already pending
+        if (pending.email == email) {
+          return await interaction.reply({
+            embeds: [
+              generateEmbed(botUser)
+                .setTitle("Awaiting Verification")
+                .setDescription(
+                  `This email is already awaiting verification.\n\nIf you don't see anything, please check your spam folder.`,
+                ),
+            ],
+            ephemeral: true,
+          });
+        }
+        // user already is verifying another email
+        else if (pending.attempts > 0) {
+          return await interaction.reply({
+            embeds: [
+              generateEmbed(botUser)
+                .setTitle("Awaiting Verification")
+                .setDescription(
+                  `You already have an email you are verifying.\n\nPlease wait until that email verification expires.`,
+                ),
+            ],
+            ephemeral: true,
+          });
+        }
       }
 
       // checks if email is valid
@@ -61,6 +83,7 @@ async function execute(interaction: CommandInteraction) {
               .setTitle("Email Not Valid")
               .setDescription(`This email is not a valid email address.`),
           ],
+          ephemeral: true,
         });
       }
 
@@ -71,16 +94,17 @@ async function execute(interaction: CommandInteraction) {
           embeds: [
             generateEmbed(botUser)
               .setTitle("Email Not Valid")
-              .setDescription(`This email is not accepted for verification.`),
+              .setDescription(`This email domain is not accepted for verification.`),
           ],
+          ephemeral: true,
         });
       }
 
-      // add new entry
       const code = Math.floor(Math.random() * 1000000)
         .toString()
         .padStart(6, "0");
 
+      if (pending) await db.deletePending(pending.id);
       await db.addPending(email, userId, code);
 
       // TODO: SEND EMAIL WITH CODE HERE
@@ -93,13 +117,14 @@ async function execute(interaction: CommandInteraction) {
               `The email \`${email}\` was sent a verification code.\n\nIf you don't see anything, please check your spam folder.`,
             ),
         ],
+        ephemeral: true,
       });
     } catch (error) {
       console.error(`Error verifiying email ${email}. Error: ${error}`);
     }
   }
 
-  return await interaction.reply({ embeds: [generateErrorEmbed(botUser)] });
+  return await interaction.reply({ embeds: [generateErrorEmbed(botUser)], ephemeral: true });
 }
 
 export { data, execute };

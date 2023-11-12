@@ -1,6 +1,7 @@
 import { ActivityType, Client, ClientOptions, Collection, Events } from "discord.js";
 import fs from "node:fs";
 import path from "node:path";
+import { GUILD_ID } from "./constants";
 
 export default class CommandClient extends Client {
   commands: Collection<any, any>;
@@ -32,22 +33,24 @@ export default class CommandClient extends Client {
   }
 
   private setStatus() {
-    this.user?.setPresence({
-      activities: [
-        {
-          name: `in the Metaverse!`,
-          type: ActivityType.Playing,
-        },
-      ],
-      status: "online",
+    this.once(Events.ClientReady, () => {
+      this.user?.setPresence({
+        activities: [
+          {
+            name: `in the Metaverse!`,
+            type: ActivityType.Playing,
+          },
+        ],
+        status: "online",
+      });
     });
   }
 
   private handleCommands() {
     this.on(Events.InteractionCreate, async (interaction) => {
-      if (!interaction.isChatInputCommand()) {
-        return;
-      }
+      if (!interaction.isChatInputCommand()) return;
+
+      if (interaction.guild?.id != GUILD_ID) return;
 
       const command = this.commands.get(interaction.commandName);
 
