@@ -1,9 +1,6 @@
-import { Sequelize } from "sequelize";
-
-export const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "discord.db",
-});
+import { sequelize } from "../database/sequelize";
+import { PENDING_EXPIRATION } from "../constants";
+import { DiscordDatabase } from "../database/database";
 
 export async function initializeDatabase() {
   try {
@@ -13,5 +10,17 @@ export async function initializeDatabase() {
     console.log("All models were synchronized successfully.");
   } catch (error) {
     console.error(`Unable to connect to the database. Error ${error}`);
+  }
+}
+
+export async function cleanUpPending() {
+  const db = DiscordDatabase.getInstance();
+  const pending = await db.getAllPending();
+  for (const element of pending) {
+    const now = new Date();
+
+    if ((now.getTime() - element.createdAt.getTime()) / (60 * 1000) >= PENDING_EXPIRATION) {
+      await db.deletePending(element.id);
+    }
   }
 }

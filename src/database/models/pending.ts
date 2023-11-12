@@ -1,11 +1,13 @@
+import { sequelize } from "../sequelize";
 import { Model, DataTypes } from "sequelize";
-import { sequelize } from "../../utils/database";
 
 class Pending extends Model {
   public id!: number;
   public userId!: string;
   public email!: string;
+  public code!: string;
   public attempts!: number;
+  public createdAt!: Date;
 }
 
 Pending.init(
@@ -20,6 +22,10 @@ Pending.init(
       allowNull: false,
     },
     email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    code: {
       type: DataTypes.STRING,
       allowNull: false,
     },

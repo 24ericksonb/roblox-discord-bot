@@ -1,11 +1,11 @@
+import { TOKEN } from "./constants";
 import { Events, GatewayIntentBits } from "discord.js";
 import CommandClient from "./client";
-import { TOKEN } from "./constants";
 import { initializeDatabase } from "./utils/database";
 
 initializeDatabase();
 
-export const client = new CommandClient({
+const client = new CommandClient({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,

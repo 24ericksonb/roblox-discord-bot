@@ -9,6 +9,8 @@ const data = new SlashCommandBuilder()
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
 async function execute(interaction: CommandInteraction) {
+  const botUser = interaction.client.user;
+
   try {
     const domainList = await DiscordDatabase.getInstance().getDomains();
     const domainsString =
@@ -17,16 +19,16 @@ async function execute(interaction: CommandInteraction) {
         : "None";
     return await interaction.reply({
       embeds: [
-        generateEmbed()
+        generateEmbed(botUser)
           .setTitle("Verified Domains")
-          .setDescription(`The following domains are verified: \n\n${domainsString}`),
+          .setDescription(`The following domains are verified:\n\n${domainsString}`),
       ],
     });
   } catch (error) {
     console.error(`Error retrieving domains. Error: ${error}`);
   }
 
-  return await interaction.reply({ embeds: [generateErrorEmbed()] });
+  return await interaction.reply({ embeds: [generateErrorEmbed(botUser)] });
 }
 
 export { data, execute };

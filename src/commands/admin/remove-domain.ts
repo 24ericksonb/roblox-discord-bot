@@ -11,15 +11,16 @@ const data = new SlashCommandBuilder()
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
 async function execute(interaction: CommandInteraction) {
-  const domain = interaction.options.get("domain")?.value;
+  const domain = interaction.options.get("domain")?.value?.toString();
+  const botUser = interaction.client.user;
 
   if (domain) {
     try {
-      if (await DiscordDatabase.getInstance().getDomain(domain.toString())) {
-        await DiscordDatabase.getInstance().deleteDomain(domain.toString());
+      if (await DiscordDatabase.getInstance().getDomain(domain)) {
+        await DiscordDatabase.getInstance().deleteDomain(domain);
         return await interaction.reply({
           embeds: [
-            generateEmbed()
+            generateEmbed(botUser)
               .setTitle("Removed Domain")
               .setDescription(
                 `The domain \`${domain}\` was successfully removed from the verified list.`,
@@ -29,7 +30,7 @@ async function execute(interaction: CommandInteraction) {
       }
       return await interaction.reply({
         embeds: [
-          generateEmbed()
+          generateEmbed(botUser)
             .setTitle("Domain Not Found")
             .setDescription(`The domain \`${domain}\` was not found in the verified list.`),
         ],
@@ -39,7 +40,7 @@ async function execute(interaction: CommandInteraction) {
     }
   }
 
-  return await interaction.reply({ embeds: [generateErrorEmbed()] });
+  return await interaction.reply({ embeds: [generateErrorEmbed(botUser)] });
 }
 
 export { data, execute };

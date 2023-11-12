@@ -1,5 +1,8 @@
 {
-    "token": "",
-    "clientId": "",
-    "guildId": ""
+    "token": "REDACTED",
+    "clientId": "REDACTED",
+    "guildId": "REDACTED",
+    "pendingExpiration": 120,
+    "maxPendingAllowed": 2,
+    "maxAttempts": 3
 }

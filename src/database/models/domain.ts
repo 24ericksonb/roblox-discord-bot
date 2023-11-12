@@ -1,5 +1,5 @@
+import { sequelize } from "../sequelize";
 import { Model, DataTypes } from "sequelize";
-import { sequelize } from "../../utils/database";
 
 class Domain extends Model {
   public id!: number;

@@ -30,24 +30,28 @@ export class DiscordDatabase {
     return await Domain.findOne({ where: { domain } });
   }
 
-  public async addPending(email: string, userId: string): Promise<void> {
-    await Pending.create({ email, userId });
+  public async addPending(email: string, userId: string, code: string): Promise<void> {
+    await Pending.create({ email, userId, code });
   }
 
-  public async deletePending(email: string, userId: string): Promise<void> {
-    await Pending.destroy({ where: { email, userId } });
+  public async deletePending(id: number): Promise<void> {
+    await Pending.destroy({ where: { id } });
+  }
+
+  public async getAllPending(): Promise<Pending[]> {
+    return await Pending.findAll();
   }
 
   public async getPending(userId: string): Promise<Pending[]> {
     return await Pending.findAll({ where: { userId } });
   }
 
-  public async getPendingEmail(userId: string, email: string): Promise<Pending | null> {
+  public async getPendingEmail(email: string, userId: string): Promise<Pending | null> {
     return await Pending.findOne({ where: { userId, email } });
   }
 
-  public async incrementAttempts(userId: string, email: string): Promise<void> {
-    await (await this.getPendingEmail(userId, email))?.increment("attempts");
+  public async incrementAttempts(id: number): Promise<void> {
+    await (await Pending.findOne({ where: { id } }))?.increment("attempts");
   }
 
   public async addVerified(userId: string, email: string): Promise<void> {

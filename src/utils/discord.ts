@@ -1,21 +1,15 @@
-import { EmbedBuilder } from "discord.js";
-import { client } from "..";
+import { EmbedBuilder, User } from "discord.js";
+// import { clientUser } from "..";
 
-export function generateEmbed(): EmbedBuilder {
-  const baseEmbed = new EmbedBuilder().setColor(0x121110).setTimestamp();
-
-  if (client.user) {
-    baseEmbed.setFooter({
-      text: client.user.displayName,
-      iconURL: client?.user.displayAvatarURL(),
-    });
-  }
-
-  return baseEmbed;
+export function generateEmbed(user: User): EmbedBuilder {
+  return new EmbedBuilder().setColor(0x121110).setTimestamp().setFooter({
+    text: user.displayName,
+    iconURL: user.displayAvatarURL(),
+  });
 }
 
-export function generateErrorEmbed(): EmbedBuilder {
-  return generateEmbed()
+export function generateErrorEmbed(user: User): EmbedBuilder {
+  return generateEmbed(user)
     .setTitle("Error")
     .setDescription("Something went wrong... Please contact an admin!");
 }
