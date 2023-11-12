@@ -6,6 +6,7 @@ const config = JSON.parse(configFile);
 export const TOKEN = config.token;
 export const CLIENT_ID = config.clientId;
 export const GUILD_ID = config.guildId;
+export const VERIFIED_LOG_CHANNEL = config.verifiedLogChannel;
 
 export const DOMAIN_REGEX = /^\*\.[a-zA-Z]{2,}|(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
 export const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

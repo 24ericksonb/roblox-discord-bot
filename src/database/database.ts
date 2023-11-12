@@ -1,6 +1,5 @@
 import Domain from "./models/domain";
 import Pending from "./models/pending";
-import Verified from "./models/verified";
 
 export class DiscordDatabase {
   private static instance: DiscordDatabase;
@@ -48,9 +47,5 @@ export class DiscordDatabase {
 
   public async incrementAttempts(id: number): Promise<void> {
     await (await Pending.findOne({ where: { id } }))?.increment("attempts");
-  }
-
-  public async addVerified(userId: string, email: string): Promise<void> {
-    await Verified.create({ email, userId });
   }
 }

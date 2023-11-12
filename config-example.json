@@ -2,7 +2,7 @@
     "token": "REDACTED",
     "clientId": "REDACTED",
     "guildId": "REDACTED",
-    "pendingExpiration": 120,
-    "maxPendingAllowed": 2,
+    "verifiedLogChannel": "REDACTED",
+    "pendingExpiration": 10,
     "maxAttempts": 3
 }

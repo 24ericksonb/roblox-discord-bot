@@ -1,8 +1,15 @@
-import { CommandInteraction, Guild, GuildMember, Role, SlashCommandBuilder } from "discord.js";
+import {
+  ChannelType,
+  CommandInteraction,
+  Guild,
+  GuildMember,
+  Role,
+  SlashCommandBuilder,
+} from "discord.js";
 import { DiscordDatabase } from "../../database/database";
 import { generateEmbed, generateErrorEmbed, getRole } from "../../utils/discord";
 import { cleanUpPending } from "../../utils/database";
-import { MAX_ATTEMPTS, VERIFIED_ROLE } from "../../constants";
+import { MAX_ATTEMPTS, VERIFIED_LOG_CHANNEL, VERIFIED_ROLE } from "../../constants";
 
 const data = new SlashCommandBuilder()
   .setName("verify")
@@ -80,9 +87,20 @@ async function execute(interaction: CommandInteraction) {
       }
 
       // process verification
-      await member.roles.add(role);
-      await db.addVerified(userId, pending.email);
       await db.deletePending(pending.id);
+      await member.roles.add(role);
+
+      // sends message to log channel
+      const logChannel = await interaction.client.channels.fetch(VERIFIED_LOG_CHANNEL);
+      if (logChannel && logChannel.type == ChannelType.GuildText) {
+        await logChannel.send({
+          embeds: [
+            generateEmbed(botUser)
+              .setTitle("Member Verified")
+              .setDescription(`${member} has verified with the email \`${pending.email}\``),
+          ],
+        });
+      }
 
       return await interaction.reply({
         embeds: [
