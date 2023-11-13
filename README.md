@@ -2,41 +2,138 @@
 
 # Roblox Discord Bot (Work in progress)
 
-![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white) 
+![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) ![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD) ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
 
 A Discord bot designed for Roblox's early recruiting server. 
 
-Last updated: **Nov 4th, 2023**
+Last updated: **Nov 13th, 2023**
 
 ## Description
 
 `roblox-discord-bot` is a project aimed at streamlining the verification processes and other custom functionality in the offical Roblox Discord server. The bot is built using Node.js and TypeScript, and utilizes the Discord.js library for interacting with the Discord API.
+Here's a more professional and standardized version of the GitHub markdown documentation for the commands:
 
-## Commands
+## Admin Commands
 
-<img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/2a94a698-97cc-4194-b03d-7d46d3cb140f" alt="Roblox" title="Roblox Bot" align="right" width="300"/>
+### `/admin-help` (ephemeral)
 
-### `/approve <member> <name>` (Admin only)
+Provides a comprehensive list of all available administrative commands and their functions.
 
-This command verifies specified members by:
+**Usage:**
+```
+/admin-help
+```
 
-1. Adding "Verified" role
-2. Removing "Not Verified" role
-3. Changing server name to full name
-4. Direct messages the member about successful verification
+**Function:**
+- Displays a message to the administrator with detailed information about each admin command.
 
-<img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/be9dd0ab-b237-4f5e-8365-43c833204bdd" alt="Roblox" title="Roblox Bot" align="right" width="300"/>
+---
 
-### `/reject <member>` (Admin only)
+### `/domains`
 
-This command rejects the verfification of a specified member by:
+Displays the current list of email domains authorized for server member verification.
 
-1. Adding "Not Verified" role
-2. Removing "Verified" role
-3. Direct message the member about failed verification
+**Usage:**
+```
+/domains
+```
+
+**Function:**
+- Sends a message listing all verified email domains.
+
+---
+
+### `/add-domain <domain>`
+
+Adds a new email domain to the server's list of verified domains. Supports wildcard (`*`) for broader domain inclusion.
+
+**Usage:**
+```
+/add-domain example.com
+/add-domain *.org
+```
+
+**Function:**
+- Registers a new email domain for verification purposes.
+
+**Restrictions:**
+- Domains already present on the list cannot be added again.
+- The domain must be a valid format and adhere to a predefined regular expression pattern.
+
+---
+
+### `/remove-domain <domain>`
+
+Removes an existing email domain from the server's list of verified domains.
+
+**Usage:**
+```
+/remove-domain example.com
+```
+
+**Function:**
+- Deletes an email domain from the verification list.
+
+**Restrictions:**
+- Only domains currently on the list can be removed.
+
+---
+
+## Member Commands
+
+### `/help` (ephemeral)
+
+Provides a list of available commands for server members along with their descriptions.
+
+**Usage:**
+```
+/help
+```
+
+**Function:**
+- Sends a message to the user with information about member commands.
+
+---
+
+### `/send-code <email>` (ephemeral)
+
+Initiates the email verification process by sending a unique code to the specified email address.
+
+**Usage:**
+```
+/send-code example@gmail.com
+```
+
+**Function:**
+- Dispatches a verification code via email.
+
+**Restrictions:**
+- Each user is limited to one verification attempt, which expires after a specified duration.
+- The email address must be valid and align with one of the approved domains.
+- Users who have already verified cannot use this command.
+
+---
+
+### `/verify <code>` (ephemeral)
+
+Completes the email verification process by verifying the code sent to the user's email.
+
+**Usage:**
+```
+/verify 236189
+```
+
+**Function:**
+- Assigns the "Verified" role to the user.
+- Removes the "Not Verified" role.
+- Records the verification event in a designated text channel.
+
+**Restrictions:**
+- The user must have an ongoing verification process.
+- A set threshold of invalid attempts is allowed before the verification process is halted.
+- The entered code must match the one sent to the user's email for successful verification.
 
 ## Extra Features
-
 
 ### Dynamic Bot Status
 
