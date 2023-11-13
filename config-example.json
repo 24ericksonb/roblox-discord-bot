@@ -1,0 +1,10 @@
+{
+    "token": "REDACTED",
+    "clientId": "REDACTED",
+    "guildId": "REDACTED",
+    "verifiedLogChannel": "REDACTED",
+    "emailAddress": "REDACTED",
+    "emailPassword": "REDACTED",
+    "pendingExpirationInMinutes": 10,
+    "maxAttempts": 3
+}

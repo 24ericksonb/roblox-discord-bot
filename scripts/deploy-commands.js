@@ -2,11 +2,12 @@ const { REST, Routes } = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
 
-require("dotenv").config();
+const configFile = fs.readFileSync("./config.json", "utf8");
+const config = JSON.parse(configFile);
 
-const discordToken = process.env.DISCORD_TOKEN;
-const clientId = process.env.DISCORD_CLIENT_ID;
-const guildId = process.env.GUILD_ID;
+const discordToken = config.token;
+const clientId = config.clientId;
+const guildId = config.guildId;
 
 if (!(discordToken && clientId && guildId)) {
   console.error("One of the tokens/ids are undefined...");

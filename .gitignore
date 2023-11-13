@@ -130,4 +130,6 @@ dist
 .pnp.*
 
 # custom
-google-credentials.json
+config.json
+discord.db
+.DS_Store

@@ -1,6 +1,9 @@
+import { TOKEN } from "./constants";
 import { Events, GatewayIntentBits } from "discord.js";
-import CommandClient from "./utils/command-client";
-import { DISCORD_TOKEN } from "./constants";
+import CommandClient from "./client";
+import { initializeDatabase } from "./utils/database";
+
+initializeDatabase();
 
 const client = new CommandClient({
   intents: [
@@ -15,4 +18,4 @@ client.once(Events.ClientReady, (c: any) => {
   console.log(`Ready! Logged in as ${c.user.tag}`);
 });
 
-client.login(DISCORD_TOKEN);
+client.login(TOKEN);

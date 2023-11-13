@@ -1,26 +1,22 @@
-import { EmbedBuilder, Guild, User } from "discord.js";
+import { EmbedBuilder, Guild, Role, User } from "discord.js";
 
-export async function getRole(guild: Guild, name: string) {
+export function generateEmbed(user: User): EmbedBuilder {
+  return new EmbedBuilder().setColor(0x23242a).setTimestamp().setFooter({
+    text: user.displayName,
+    iconURL: user.displayAvatarURL(),
+  });
+}
+
+export function generateErrorEmbed(user: User): EmbedBuilder {
+  return generateEmbed(user)
+    .setTitle("Error")
+    .setDescription("Something went wrong... Please contact an admin!");
+}
+
+export async function getRole(guild: Guild, name: string): Promise<Role> {
   const roles = await guild.roles.fetch();
-  console.log(roles);
-  const role = roles?.find((r) => r.name === name);
+  if (!roles) throw Error("Roles not found...");
+  const role = roles.find((r) => r.name === name);
+  if (!role) throw Error("Role not found...");
   return role;
-}
-
-export function getOptionValue(options: any, name: string) {
-  const commandOption = options.get(name);
-  if (!commandOption) return null;
-  return commandOption.value;
-}
-
-export function getBaseEmbed(title: string, description: string, user: User) {
-  return new EmbedBuilder()
-    .setColor(0x121110)
-    .setTitle(title)
-    .setDescription(description)
-    .setTimestamp()
-    .setFooter({
-      text: user.displayName,
-      iconURL: user.displayAvatarURL(),
-    });
 }

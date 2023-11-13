@@ -1,38 +1,21 @@
-import dotenv from "dotenv";
-import { getIntEnvVar, getStringEnvVar } from "./utils/general";
+import fs from "fs";
 
-dotenv.config();
+const configFile = fs.readFileSync("./config.json", "utf8");
+const config = JSON.parse(configFile);
 
-// Discord configuration
-export const DISCORD_TOKEN = getStringEnvVar("DISCORD_TOKEN", "");
-export const DISCORD_CLIENT_ID = getStringEnvVar("DISCORD_CLIENT_ID", "");
-export const GUILD_ID = getStringEnvVar("GUILD_ID", "");
+export const TOKEN = config.token;
+export const CLIENT_ID = config.clientId;
+export const GUILD_ID = config.guildId;
+export const VERIFIED_LOG_CHANNEL = config.verifiedLogChannel;
 
-// Google Forms configuration
-export const FORM_ID = getStringEnvVar("FORM_ID", "");
-export const GOOGLE_FORM_UPDATES = getIntEnvVar("GOOGLE_FORM_UPDATES", 0);
+export const DOMAIN_REGEX = /^\*\.[a-zA-Z]{2,}|(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
+export const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-// Update intervals (in minutes)
-export const STATUS_UPDATE_INTERVAL = getIntEnvVar(
-  "STATUS_UPDATE_IN_MINUTES",
-  60,
-);
+export const PENDING_EXPIRATION = config.pendingExpirationInMinutes;
+export const MAX_ATTEMPTS = config.maxAttempts;
 
-// Role configuration
-export const ROLES = {
-  VERIFIED: "Verified",
-  UNVERIFIED: "Not Verified",
-};
+export const VERIFIED_ROLE = "Verified";
+export const NOT_VERIFIED_ROLE = "Not Verified";
 
-// Ensure that the required configurations are set
-const requiredConfigs = [DISCORD_TOKEN, DISCORD_CLIENT_ID, GUILD_ID];
-
-if (GOOGLE_FORM_UPDATES === 1) {
-  requiredConfigs.push(FORM_ID);
-}
-
-requiredConfigs.forEach((config) => {
-  if (!config) {
-    throw new Error("Missing required environment variable");
-  }
-});
+export const EMAIL_ADDRESS = config.emailAddress;
+export const EMAIL_PASSWORD = config.emailPassword;
