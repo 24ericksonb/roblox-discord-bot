@@ -1,4 +1,4 @@
-import { CommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, PermissionFlagsBits, SlashCommandBuilder, User } from "discord.js";
 import { DiscordDatabase } from "../../database/database";
 import { generateEmbed, generateErrorEmbed } from "../../utils/discord";
 
@@ -10,9 +10,8 @@ const data = new SlashCommandBuilder()
   )
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
-async function execute(interaction: CommandInteraction) {
+async function execute(interaction: CommandInteraction, botUser: User) {
   const domain = interaction.options.get("domain")?.value?.toString();
-  const botUser = interaction.client.user;
 
   if (domain) {
     try {

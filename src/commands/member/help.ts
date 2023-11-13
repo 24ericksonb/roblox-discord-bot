@@ -1,4 +1,4 @@
-import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, SlashCommandBuilder, User } from "discord.js";
 import { generateEmbed } from "../../utils/discord";
 import { MAX_ATTEMPTS } from "../../constants";
 
@@ -6,9 +6,7 @@ const data = new SlashCommandBuilder()
   .setName("help")
   .setDescription("Sends a help message about the commands");
 
-async function execute(interaction: CommandInteraction) {
-  const botUser = interaction.client.user;
-
+async function execute(interaction: CommandInteraction, botUser: User) {
   return await interaction.reply({
     embeds: [
       generateEmbed(botUser)

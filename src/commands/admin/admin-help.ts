@@ -1,4 +1,4 @@
-import { CommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, PermissionFlagsBits, SlashCommandBuilder, User } from "discord.js";
 import { generateEmbed } from "../../utils/discord";
 
 const data = new SlashCommandBuilder()
@@ -6,9 +6,7 @@ const data = new SlashCommandBuilder()
   .setDescription("Sends a help message about the commands")
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
-async function execute(interaction: CommandInteraction) {
-  const botUser = interaction.client.user;
-
+async function execute(interaction: CommandInteraction, botUser: User) {
   return await interaction.reply({
     embeds: [
       generateEmbed(botUser)

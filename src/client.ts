@@ -2,6 +2,7 @@ import { ActivityType, Client, ClientOptions, Collection, Events } from "discord
 import fs from "node:fs";
 import path from "node:path";
 import { GUILD_ID } from "./constants";
+import { generateEmbed } from "./utils/discord";
 
 export default class CommandClient extends Client {
   commands: Collection<any, any>;
@@ -48,9 +49,20 @@ export default class CommandClient extends Client {
 
   private handleCommands() {
     this.on(Events.InteractionCreate, async (interaction) => {
+      const botUser = interaction.client.user;
+
       if (!interaction.isChatInputCommand()) return;
 
-      if (interaction.guild?.id != GUILD_ID) return;
+      if (interaction.guild?.id != GUILD_ID) {
+        await interaction.reply({
+          embeds: [
+            generateEmbed(botUser)
+              .setTitle("Server Only Command")
+              .setDescription(`Commands are only usable in a server setting.`),
+          ],
+        });
+        return;
+      }
 
       const command = this.commands.get(interaction.commandName);
 
@@ -60,7 +72,7 @@ export default class CommandClient extends Client {
       }
 
       try {
-        await command.execute(interaction);
+        await command.execute(interaction, botUser);
       } catch (error) {
         console.error(error);
       }

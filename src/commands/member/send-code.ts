@@ -1,4 +1,11 @@
-import { CommandInteraction, Guild, GuildMember, Role, SlashCommandBuilder } from "discord.js";
+import {
+  CommandInteraction,
+  Guild,
+  GuildMember,
+  Role,
+  SlashCommandBuilder,
+  User,
+} from "discord.js";
 import { DiscordDatabase } from "../../database/database";
 import { generateEmbed, generateErrorEmbed, getRole } from "../../utils/discord";
 import { EMAIL_REGEX, VERIFIED_ROLE } from "../../constants";
@@ -15,8 +22,7 @@ const data = new SlashCommandBuilder()
       .setRequired(true),
   );
 
-async function execute(interaction: CommandInteraction) {
-  const botUser = interaction.client.user;
+async function execute(interaction: CommandInteraction, botUser: User) {
   const email = interaction.options.get("email")?.value?.toString();
   const userId = interaction.user.id;
   const db = DiscordDatabase.getInstance();
