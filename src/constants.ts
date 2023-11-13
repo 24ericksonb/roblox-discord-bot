@@ -15,6 +15,7 @@ export const PENDING_EXPIRATION = config.pendingExpirationInMinutes;
 export const MAX_ATTEMPTS = config.maxAttempts;
 
 export const VERIFIED_ROLE = "Verified";
+export const NOT_VERIFIED_ROLE = "Not Verified";
 
 export const EMAIL_ADDRESS = config.emailAddress;
 export const EMAIL_PASSWORD = config.emailPassword;

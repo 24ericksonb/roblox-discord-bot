@@ -9,7 +9,12 @@ import {
 import { DiscordDatabase } from "../../database/database";
 import { generateEmbed, generateErrorEmbed, getRole } from "../../utils/discord";
 import { cleanUpPending } from "../../utils/database";
-import { MAX_ATTEMPTS, VERIFIED_LOG_CHANNEL, VERIFIED_ROLE } from "../../constants";
+import {
+  MAX_ATTEMPTS,
+  NOT_VERIFIED_ROLE,
+  VERIFIED_LOG_CHANNEL,
+  VERIFIED_ROLE,
+} from "../../constants";
 
 const data = new SlashCommandBuilder()
   .setName("verify")
@@ -31,15 +36,16 @@ async function execute(interaction: CommandInteraction) {
       // clean up expired entries
       cleanUpPending();
 
-      const role = await getRole(guild, VERIFIED_ROLE);
+      const verifiedRole = await getRole(guild, VERIFIED_ROLE);
+      const notVerifedRole = await getRole(guild, NOT_VERIFIED_ROLE);
 
       // checks for verified role
-      if (member.roles.cache.some((e: Role) => e === role)) {
+      if (member.roles.cache.some((e: Role) => e === verifiedRole)) {
         return await interaction.reply({
           embeds: [
             generateEmbed(botUser)
               .setTitle("Already Verified")
-              .setDescription(`You already have the ${role} role!`),
+              .setDescription(`You already have the ${verifiedRole} role!`),
           ],
           ephemeral: true,
         });
@@ -88,7 +94,8 @@ async function execute(interaction: CommandInteraction) {
 
       // process verification
       await db.deletePending(pending.id);
-      await member.roles.add(role);
+      await member.roles.add(verifiedRole);
+      await member.roles.remove(notVerifedRole);
 
       // sends message to log channel
       const logChannel = await interaction.client.channels.fetch(VERIFIED_LOG_CHANNEL);
