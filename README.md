@@ -133,16 +133,6 @@ Completes the email verification process by verifying the code sent to the user'
 - A set threshold of invalid attempts is allowed before the verification process is halted.
 - The entered code must match the one sent to the user's email for successful verification.
 
-## Extra Features
-
-### Dynamic Bot Status
-
-If `GOOGLE_FORM_UPDATES` is set to `1`, the bots status will be updated with the current amount of members waiting to be verified every set interval (see bottom picture). It uses Google Forms API to query the verification form and retrieves the current amount of responses. The verifier will have to delete the verification responses as they process them for this to work efficently. If `GOOGLE_FORM_UPDATES`is set to `0`, it will display a static message (see top picture).
-
-<div align="center">
-  <img src="https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/53be0942-e6d0-4c35-80f0-e89e0a9d8788" alt="Roblox" title="Roblox Bot" width="300"/>
-</div>
-
 ## Getting Started
 
 ### Prerequisites
@@ -165,30 +155,21 @@ If `GOOGLE_FORM_UPDATES` is set to `1`, the bots status will be updated with the
     npm install
     ```
 
-3. Set up `.env` file:
+3. Set up `config.json` file:
     ```bash
-    cp .example-env .env
+    cp config-example.json config.json
     ```
-    Replace all `XXXXXXX` with correct values.
 
-    - `DISCORD_TOKEN` & `DISCORD_CLIENT_ID`: The Discord bot token and client ID which 
-        - Can be found [here](https://discord.com/developers/applications)
-    - `GUILD_ID`: The Discord server ID 
-        - [Instructions](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-#:~:text=Obtaining%20Server%20IDs%20%2D%20Mobile%20App,name%20and%20select%20Copy%20ID.) to find server ID
-    - `FORM_ID`: The verification Google Form id
-        - Located in the URL: docs.google.com/forms/d/**\<FORM_ID\>**/edit
-    - `GOOGLE_FORM_UPDATES`: Bot's status boolean
-        - Refer to "[Dynamic Bot Status](#dynamic-bot-status)" sections to see the difference.
-    - `STATUS_UPDATE_IN_MINUTES`: The interval (in minutes) at which the status is updated
-        - This only has an affect if `GOOGLE_FORM_UPDATES` is set to `1`
+    Replace all `REDACTED` with correct values.
 
-4. (_Optional_) Set up Google Cloud service account:
-
-    If you would want live updates of how many users are currently waiting to be verified (ie `GOOGLE_FORM_UPDATES` is set to `1`), please set up a Google Cloud service account by follow these [instructions](https://developers.google.com/workspace/guides/create-credentials#create_a_service_account).
-
-    An example of the format of the service account credential file is located in `example-google-credentials.json` (rename the file to `google-credentials.json`).
-
-    **IMPORTANT:** Make sure to share Editor access of the verification form to your service account.
+    - `token`: The Discord bot token (can be found [here](https://discord.com/developers/applications)) 
+    - `clientId`: The client ID (can be found [here](https://discord.com/developers/applications))
+    - `guildId`: The guild ID (instructions [here](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-#:~:text=Obtaining%20Server%20IDs%20%2D%20Mobile%20App,name%20and%20select%20Copy%20ID.))
+    - `verifiedLogChannel`: The text channel where verification details will be logged (instructions [here](https://en.wikipedia.org/wiki/Template:Discord_channel#:~:text=To%20get%20the%20channel%2Fserver,to%20get%20the%20guild%20ID.))
+    - `emailAddress`: The Gmail address that will send the verification codes
+    - `emailPassword`: The Gmail app password (instructions [here](https://support.google.com/mail/answer/185833?hl=en))
+    - `pendingExpirationInMinutes`: The expiration time in minutes of verification code (recommended to set to `10` or less)
+    - `maxAttempts`: The maximum of invalid code attempts before the verification process is halted
 
 ### Usage
 

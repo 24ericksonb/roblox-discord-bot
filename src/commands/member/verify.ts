@@ -8,7 +8,7 @@ import {
 } from "discord.js";
 import { DiscordDatabase } from "../../database/database";
 import { generateEmbed, generateErrorEmbed, getRole } from "../../utils/discord";
-import { cleanUpPending } from "../../utils/database";
+import { cleanUpPending, getExpireInMinutes } from "../../utils/database";
 import {
   MAX_ATTEMPTS,
   NOT_VERIFIED_ROLE,
@@ -34,7 +34,7 @@ async function execute(interaction: CommandInteraction) {
   if (code) {
     try {
       // clean up expired entries
-      cleanUpPending();
+      await cleanUpPending();
 
       const verifiedRole = await getRole(guild, VERIFIED_ROLE);
       const notVerifedRole = await getRole(guild, NOT_VERIFIED_ROLE);
@@ -69,11 +69,15 @@ async function execute(interaction: CommandInteraction) {
 
       // checks for max tries
       if (pending.attempts >= MAX_ATTEMPTS) {
+        const minutesTilExp = getExpireInMinutes(pending);
+
         return await interaction.reply({
           embeds: [
             generateEmbed(botUser)
               .setTitle("Attempt Limit")
-              .setDescription(`You have reached the maximum amount of tries for this email.`),
+              .setDescription(
+                `You have reached the maximum amount of tries for this email.\n\nPlease wait **${minutesTilExp}** minutes until the verification expires.`,
+              ),
           ],
           ephemeral: true,
         });

@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { EMAIL_ADDRESS, EMAIL_PASSWORD, PENDING_EXPIRATION } from "../constants";
+import crypto from "crypto";
 
 export function domainMatches(domain: string, email: string): boolean {
   const emailDomain = email.split("@")[1].toLowerCase();
@@ -7,6 +8,12 @@ export function domainMatches(domain: string, email: string): boolean {
   const regexPattern = domain.replace(/\*/g, "[a-zA-Z0-9-]*").replace(".", "\\.");
   const regex = new RegExp("^" + regexPattern + "$");
   return regex.test(emailDomain);
+}
+
+export function generateCode(): string {
+  const buffer = crypto.randomBytes(3);
+  const code = buffer.readUIntBE(0, 3);
+  return code.toString().padStart(6, "0").substring(0, 6);
 }
 
 export function sendEmail(email: string, code: string): void {

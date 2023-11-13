@@ -1,7 +1,6 @@
 import { CommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
-import { DiscordDatabase } from "../../database/database";
-import Domain from "../../database/models/domain";
 import { generateEmbed, generateErrorEmbed } from "../../utils/discord";
+import { getDomainList } from "../../utils/database";
 
 const data = new SlashCommandBuilder()
   .setName("domains")
@@ -10,18 +9,14 @@ const data = new SlashCommandBuilder()
 
 async function execute(interaction: CommandInteraction) {
   const botUser = interaction.client.user;
+  const domains = await getDomainList();
 
   try {
-    const domainList = await DiscordDatabase.getInstance().getDomains();
-    const domainsString =
-      domainList.length > 0
-        ? domainList.map((domainObj: Domain) => `\`${domainObj.domain}\``).join(", ")
-        : "None";
     return await interaction.reply({
       embeds: [
         generateEmbed(botUser)
           .setTitle("Verified Domains")
-          .setDescription(`The following domains are verified:\n\n${domainsString}`),
+          .setDescription(`The following domains are verified:\n\n${domains}`),
       ],
     });
   } catch (error) {

@@ -1,9 +1,9 @@
 import { CommandInteraction, Guild, GuildMember, Role, SlashCommandBuilder } from "discord.js";
 import { DiscordDatabase } from "../../database/database";
 import { generateEmbed, generateErrorEmbed, getRole } from "../../utils/discord";
-import { EMAIL_REGEX, PENDING_EXPIRATION, VERIFIED_ROLE } from "../../constants";
-import { domainMatches, sendEmail } from "../../utils/general";
-import { cleanUpPending } from "../../utils/database";
+import { EMAIL_REGEX, VERIFIED_ROLE } from "../../constants";
+import { domainMatches, generateCode, sendEmail } from "../../utils/general";
+import { cleanUpPending, getDomainList, getExpireInMinutes } from "../../utils/database";
 
 const data = new SlashCommandBuilder()
   .setName("send-code")
@@ -26,7 +26,7 @@ async function execute(interaction: CommandInteraction) {
   if (email) {
     try {
       // clean up expired entries
-      cleanUpPending();
+      await cleanUpPending();
 
       const role = await getRole(guild, VERIFIED_ROLE);
 
@@ -54,17 +54,14 @@ async function execute(interaction: CommandInteraction) {
               generateEmbed(botUser)
                 .setTitle("Awaiting Verification")
                 .setDescription(
-                  `This email is already awaiting verification.\n\nIf you don't see anything, please check your spam folder.`,
+                  `This email is already awaiting verification.\n\nIf you don't see any emails from, please check your spam folder.`,
                 ),
             ],
             ephemeral: true,
           });
         }
-        const currentTime = new Date().getTime();
-        const creationTime = pending.createdAt.getTime();
-        const difference = PENDING_EXPIRATION - (currentTime - creationTime) / (60 * 1000);
-        const minutesTilExp = Math.max(parseInt(difference.toString()), 1);
 
+        const minutesTilExp = getExpireInMinutes(pending);
         return await interaction.reply({
           embeds: [
             generateEmbed(botUser)
@@ -92,21 +89,23 @@ async function execute(interaction: CommandInteraction) {
       // checks if email fits one of the verified domains
       const domainList = await db.getDomains();
       if (!domainList.some((domain) => domainMatches(domain.domain, email))) {
+        const domains = await getDomainList();
+
         return await interaction.reply({
           embeds: [
             generateEmbed(botUser)
               .setTitle("Email Not Valid")
-              .setDescription(`This email domain is not accepted for verification.`),
+              .setDescription(
+                `This email domain is not accepted for verification.\n\nAccepted domains: ${domains}`,
+              ),
           ],
           ephemeral: true,
         });
       }
 
-      const code = Math.floor(Math.random() * 1000000)
-        .toString()
-        .padStart(6, "0");
-
+      const code = generateCode();
       await db.addPending(email, userId, code);
+
       sendEmail(email, code);
 
       return await interaction.reply({
