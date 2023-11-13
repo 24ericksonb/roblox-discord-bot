@@ -1,8 +1,8 @@
 import { CommandInteraction, Guild, GuildMember, Role, SlashCommandBuilder } from "discord.js";
 import { DiscordDatabase } from "../../database/database";
 import { generateEmbed, generateErrorEmbed, getRole } from "../../utils/discord";
-import { EMAIL_REGEX, VERIFIED_ROLE } from "../../constants";
-import { domainMatches } from "../../utils/general";
+import { EMAIL_REGEX, PENDING_EXPIRATION, VERIFIED_ROLE } from "../../constants";
+import { domainMatches, sendEmail } from "../../utils/general";
 import { cleanUpPending } from "../../utils/database";
 
 const data = new SlashCommandBuilder()
@@ -60,19 +60,21 @@ async function execute(interaction: CommandInteraction) {
             ephemeral: true,
           });
         }
-        // user already is verifying another email
-        else if (pending.attempts > 0) {
-          return await interaction.reply({
-            embeds: [
-              generateEmbed(botUser)
-                .setTitle("Awaiting Verification")
-                .setDescription(
-                  `You already have an email you are verifying.\n\nPlease wait until that email verification expires.`,
-                ),
-            ],
-            ephemeral: true,
-          });
-        }
+        const currentTime = new Date().getTime();
+        const creationTime = pending.createdAt.getTime();
+        const difference = PENDING_EXPIRATION - (currentTime - creationTime) / (60 * 1000);
+        const minutesTilExp = Math.max(parseInt(difference.toString()), 1);
+
+        return await interaction.reply({
+          embeds: [
+            generateEmbed(botUser)
+              .setTitle("Awaiting Verification")
+              .setDescription(
+                `You already have another email awaiting verification.\n\nPlease wait **${minutesTilExp}** minutes until the verification expires.`,
+              ),
+          ],
+          ephemeral: true,
+        });
       }
 
       // checks if email is valid
@@ -104,10 +106,8 @@ async function execute(interaction: CommandInteraction) {
         .toString()
         .padStart(6, "0");
 
-      if (pending) await db.deletePending(pending.id);
       await db.addPending(email, userId, code);
-
-      // TODO: SEND EMAIL WITH CODE HERE
+      sendEmail(email, code);
 
       return await interaction.reply({
         embeds: [

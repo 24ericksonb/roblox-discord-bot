@@ -11,7 +11,10 @@ export const VERIFIED_LOG_CHANNEL = config.verifiedLogChannel;
 export const DOMAIN_REGEX = /^\*\.[a-zA-Z]{2,}|(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
 export const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-export const PENDING_EXPIRATION = config.pendingExpiration;
+export const PENDING_EXPIRATION = config.pendingExpirationInMinutes;
 export const MAX_ATTEMPTS = config.maxAttempts;
 
 export const VERIFIED_ROLE = "Verified";
+
+export const EMAIL_ADDRESS = config.emailAddress;
+export const EMAIL_PASSWORD = config.emailPassword;
