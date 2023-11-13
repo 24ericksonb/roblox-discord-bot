@@ -5,9 +5,8 @@ import { DiscordDatabase } from "../database/database";
 export async function initializeDatabase() {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
     await sequelize.sync();
-    console.log("All models were synchronized successfully.");
+    console.log("Database initialized!");
   } catch (error) {
     console.error(`Unable to connect to the database. Error ${error}`);
   }
