@@ -1,4 +1,4 @@
-import { CommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, PermissionFlagsBits, SlashCommandBuilder, User } from "discord.js";
 import { generateEmbed, generateErrorEmbed } from "../../utils/discord";
 import { getDomainList } from "../../utils/database";
 
@@ -7,8 +7,7 @@ const data = new SlashCommandBuilder()
   .setDescription("Lists all domains from the domain list")
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
-async function execute(interaction: CommandInteraction) {
-  const botUser = interaction.client.user;
+async function execute(interaction: CommandInteraction, botUser: User) {
   const domains = await getDomainList();
 
   try {

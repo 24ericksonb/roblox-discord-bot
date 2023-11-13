@@ -5,6 +5,7 @@ import {
   GuildMember,
   Role,
   SlashCommandBuilder,
+  User,
 } from "discord.js";
 import { DiscordDatabase } from "../../database/database";
 import { generateEmbed, generateErrorEmbed, getRole } from "../../utils/discord";
@@ -23,8 +24,7 @@ const data = new SlashCommandBuilder()
     option.setName("code").setDescription("The code recieved from the email").setRequired(true),
   );
 
-async function execute(interaction: CommandInteraction) {
-  const botUser = interaction.client.user;
+async function execute(interaction: CommandInteraction, botUser: User) {
   const code = interaction.options.get("code")?.value?.toString();
   const userId = interaction.user.id;
   const db = DiscordDatabase.getInstance();

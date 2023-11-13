@@ -1,6 +1,6 @@
 ![image](https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/7c48eb63-fa40-41ce-9410-3282088db010)
 
-# Roblox Discord Bot (Work in progress)
+# Roblox Discord Bot
 
 ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) ![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD) ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
 
@@ -151,6 +151,20 @@ Completes the email verification process by verifying the code sent to the user'
     cp config-example.json config.json
     ```
 
+    `config.json`
+    ```json
+    {
+        "token": "REDACTED",
+        "clientId": "REDACTED",
+        "guildId": "REDACTED",
+        "verifiedLogChannel": "REDACTED",
+        "emailAddress": "REDACTED",
+        "emailPassword": "REDACTED",
+        "pendingExpirationInMinutes": 10,
+        "maxAttempts": 3
+    }
+    ```
+
     Replace all `REDACTED` with correct values.
 
     - `token`: The Discord bot token (can be found [here](https://discord.com/developers/applications)) 
@@ -159,7 +173,7 @@ Completes the email verification process by verifying the code sent to the user'
     - `verifiedLogChannel`: The text channel where verification details will be logged (instructions [here](https://en.wikipedia.org/wiki/Template:Discord_channel#:~:text=To%20get%20the%20channel%2Fserver,to%20get%20the%20guild%20ID.))
     - `emailAddress`: The Gmail address that will send the verification codes
     - `emailPassword`: The Gmail app password (instructions [here](https://support.google.com/mail/answer/185833?hl=en))
-    - `pendingExpirationInMinutes`: The expiration time in minutes of verification code (recommended to set to `10` or less)
+    - `pendingExpirationInMinutes`: The expiration time in minutes of verification code
     - `maxAttempts`: The maximum of invalid code attempts before the verification process is halted
 
 ### Usage

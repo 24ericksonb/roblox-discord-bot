@@ -11,9 +11,6 @@
   },
   "include": [
     "src/**/*.ts", 
-    "scripts/deploy-commands.js", 
-    "src/database/migrations/001-initial-setup.ts", 
-    "src/database/database.ts"  
   ],
   "exclude": [
     "node_modules"
