@@ -1,5 +1,6 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { generateEmbed } from "../../utils/discord";
+import { MAX_ATTEMPTS } from "../../constants";
 
 const data = new SlashCommandBuilder()
   .setName("help")
@@ -14,11 +15,12 @@ async function execute(interaction: CommandInteraction) {
         .setTitle("Command Help")
         .setDescription(
           `
-				\`/send-code <email>\`
-				Sends a verification code to the specified email address. Limited to certain domains and only one verification per user at a time.\n
-				\`/verify <code>\`
-				Verifies the code received from the email. Maximum of three failed attempts before you have to send a new code.
-				`,
+          \`/send-code <email>\`
+          Sends a verification code to the specified email address. This command is limited to certain domains and each user can request only one verification at a time.
+
+          \`/verify <code>\`
+          Verifies the code received from the email. You have a maximum of ${MAX_ATTEMPTS} attempts to enter the correct code before you need to request a new one.
+          `,
         ),
     ],
     ephemeral: true,

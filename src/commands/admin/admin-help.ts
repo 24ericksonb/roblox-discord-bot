@@ -15,13 +15,15 @@ async function execute(interaction: CommandInteraction) {
         .setTitle("Admin Command Help")
         .setDescription(
           `
-				\`/domains\`
-				Lists all current domains able to be verified.\n
-				\`/add-domain <domain>\`
-				Adds a new domain to the domain list. Duplicate domains are not allowed and you can specify wildcards with * (ex. *.edu).\n
-        \`/remove-domain <domain>\`
-				Removes a domain from the domain list. Can only remove domains that are currently on the domain list.
-				`,
+          \`/domains\`
+          Lists all current domains that can be verified.
+          
+          \`/add-domain <domain>\`
+          Adds a new domain to the domain list. Duplicate domains are not allowed and you can use wildcards with * (e.g., *.edu).
+          
+          \`/remove-domain <domain>\`
+          Removes a domain from the domain list. You can only remove domains that are currently on the domain list.
+				  `,
         ),
     ],
     ephemeral: true,
