@@ -3,6 +3,8 @@
     "clientId": "REDACTED",
     "guildId": "REDACTED",
     "verifiedLogChannel": "REDACTED",
-    "pendingExpiration": 10,
+    "emailAddress": "REDACTED",
+    "emailPassword": "REDACTED",
+    "pendingExpirationInMinutes": 10,
     "maxAttempts": 3
 }
