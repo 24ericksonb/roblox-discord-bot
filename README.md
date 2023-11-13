@@ -27,8 +27,6 @@ Provides a comprehensive list of all available administrative commands and their
 **Function:**
 - Displays a message to the administrator with detailed information about each admin command.
 
----
-
 ### `/domains`
 
 Displays the current list of email domains authorized for server member verification.
@@ -40,8 +38,6 @@ Displays the current list of email domains authorized for server member verifica
 
 **Function:**
 - Sends a message listing all verified email domains.
-
----
 
 ### `/add-domain <domain>`
 
@@ -60,8 +56,6 @@ Adds a new email domain to the server's list of verified domains. Supports wildc
 - Domains already present on the list cannot be added again.
 - The domain must be a valid format and adhere to a predefined regular expression pattern.
 
----
-
 ### `/remove-domain <domain>`
 
 Removes an existing email domain from the server's list of verified domains.
@@ -77,8 +71,6 @@ Removes an existing email domain from the server's list of verified domains.
 **Restrictions:**
 - Only domains currently on the list can be removed.
 
----
-
 ## Member Commands
 
 ### `/help` (ephemeral)
@@ -92,8 +84,6 @@ Provides a list of available commands for server members along with their descri
 
 **Function:**
 - Sends a message to the user with information about member commands.
-
----
 
 ### `/send-code <email>` (ephemeral)
 
@@ -112,7 +102,8 @@ Initiates the email verification process by sending a unique code to the specifi
 - The email address must be valid and align with one of the approved domains.
 - Users who have already verified cannot use this command.
 
----
+**Example Email:**
+![image](https://github.com/24ericksonb/roblox-discord-bot/assets/72327129/03fb332a-261d-4810-95fb-a29132330bbc)
 
 ### `/verify <code>` (ephemeral)
 
@@ -124,8 +115,8 @@ Completes the email verification process by verifying the code sent to the user'
 ```
 
 **Function:**
-- Assigns the "Verified" role to the user.
-- Removes the "Not Verified" role.
+- Assigns the `Verified` role to the user.
+- Removes the `Not Verified` role.
 - Records the verification event in a designated text channel.
 
 **Restrictions:**
