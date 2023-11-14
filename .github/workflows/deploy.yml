@@ -1,0 +1,29 @@
+name: Deploy to Remote Server
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.2
+      with:
+        ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+    - name: Pull Updates and Restart PM2
+      run: |
+        ssh -o StrictHostKeyChecking=no {{ secrets.SSH_USER }}@{{ secrets.SSH_SERVER }} "
+          cd /path/to/your/project &&
+          git reset --hard origin/main &&
+          git pull origin main &&
+          npm install &&
+          pm2 restart roblox-bot
+        "
