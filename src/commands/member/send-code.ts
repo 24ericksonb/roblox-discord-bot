@@ -80,6 +80,21 @@ async function execute(interaction: CommandInteraction, botUser: User) {
         });
       }
 
+      // checks if email is blacklisted
+      const emails = await db.getEmails();
+      for (const blacklistObj of emails) {
+        if (blacklistObj.email == email) {
+          return await interaction.reply({
+            embeds: [
+              generateEmbed(botUser)
+                .setTitle("Email Blacklisted")
+                .setDescription(`This email has been blacklisted.`),
+            ],
+            ephemeral: true,
+          });
+        }
+      }
+
       // checks if email is valid
       if (!EMAIL_REGEX.test(email)) {
         return await interaction.reply({

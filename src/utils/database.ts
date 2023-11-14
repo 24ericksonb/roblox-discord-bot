@@ -3,6 +3,7 @@ import { PENDING_EXPIRATION } from "../constants";
 import { DiscordDatabase } from "../database/database";
 import Domain from "../database/models/domain";
 import Pending from "../database/models/pending";
+import Blacklist from "../database/models/blacklist";
 
 export async function initializeDatabase() {
   try {
@@ -31,6 +32,14 @@ export async function getDomainList(): Promise<string> {
   const domainList = await db.getDomains();
   return domainList.length > 0
     ? domainList.map((domainObj: Domain) => `\`${domainObj.domain}\``).join(", ")
+    : "None";
+}
+
+export async function getEmailList(): Promise<string> {
+  const db = DiscordDatabase.getInstance();
+  const blacklist = await db.getEmails();
+  return blacklist.length > 0
+    ? blacklist.map((blacklistObj: Blacklist) => `\`${blacklistObj.email}\``).join(", ")
     : "None";
 }
 

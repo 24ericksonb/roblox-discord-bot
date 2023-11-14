@@ -21,6 +21,15 @@ async function execute(interaction: CommandInteraction, botUser: User) {
           
           \`/remove-domain <domain>\`
           Removes a domain from the domain list. You can only remove domains that are currently on the domain list.
+
+          \`/blacklist\`
+          Lists all current emails that are on the blacklist.
+          
+          \`/add-blacklist <email>\`
+          Adds a new email to the blacklist. Duplicate emails are not allowed.
+          
+          \`/remove-blacklist <email>\`
+          Removes an email from the blacklist. You can only remove emails that are currently on the blacklist.
 				  `,
         ),
     ],

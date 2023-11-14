@@ -108,7 +108,7 @@ async function execute(interaction: CommandInteraction, botUser: User) {
           embeds: [
             generateEmbed(botUser)
               .setTitle("Member Verified")
-              .setDescription(`${member} has verified with the email \`${pending.email}\``),
+              .setDescription(`${member} has verified with the email \`${pending.email}\`.`),
           ],
         });
       }
