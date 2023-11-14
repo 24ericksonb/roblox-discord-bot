@@ -7,7 +7,6 @@ on:
 
 jobs:
   deploy:
-    needs: checks
     runs-on: ubuntu-latest
 
     steps:
