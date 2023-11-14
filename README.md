@@ -71,6 +71,50 @@ Removes an existing email domain from the server's list of verified domains.
 **Restrictions:**
 - Only domains currently on the list can be removed.
 
+### `/blacklist`
+
+Displays the current list of emails that are blacklisted for verification.
+
+**Usage:**
+```
+/blacklist
+```
+
+**Function:**
+- Sends a message listing all blacklisted emails.
+
+### `/add-blacklist <email>`
+
+Adds a new email to the server's blacklist.
+
+**Usage:**
+```
+/add-blacklist example@gmail.com
+```
+
+**Function:**
+- Adds a new email to the blacklist.
+- Blocks anyone attempting to use this email for verification.
+
+**Restrictions:**
+- Emails already present on the list cannot be added again.
+- The email must be a valid format and adhere to a predefined regular expression pattern.
+
+### `/remove-blacklist <email>`
+
+Removes an existing email from the server's blacklist.
+
+**Usage:**
+```
+/remove-blacklist example@gmail.com
+```
+
+**Function:**
+- Deletes an email from the  blacklist.
+
+**Restrictions:**
+- Only domains currently on the list can be removed.
+
 ## Member Commands
 
 ### `/help` (ephemeral)
@@ -150,8 +194,6 @@ Completes the email verification process by verifying the code sent to the user'
     ```bash
     cp config-example.json config.json
     ```
-
-    `config.json`
     ```json
     {
         "token": "REDACTED",

@@ -1,3 +1,4 @@
+import Blacklist from "./models/blacklist";
 import Domain from "./models/domain";
 import Pending from "./models/pending";
 
@@ -47,5 +48,21 @@ export class DiscordDatabase {
 
   public async incrementAttempts(id: number): Promise<void> {
     await (await Pending.findOne({ where: { id } }))?.increment("attempts");
+  }
+
+  public async addEmail(email: string): Promise<void> {
+    await Blacklist.create({ email });
+  }
+
+  public async deleteEmail(email: string): Promise<void> {
+    await Blacklist.destroy({ where: { email } });
+  }
+
+  public async getEmails(): Promise<Blacklist[]> {
+    return await Blacklist.findAll();
+  }
+
+  public async getEmail(email: string): Promise<Blacklist | null> {
+    return await Blacklist.findOne({ where: { email } });
   }
 }

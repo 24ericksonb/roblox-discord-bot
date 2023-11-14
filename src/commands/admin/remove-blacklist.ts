@@ -3,27 +3,27 @@ import { DiscordDatabase } from "../../database/database";
 import { generateEmbed, generateErrorEmbed } from "../../utils/discord";
 
 const data = new SlashCommandBuilder()
-  .setName("remove-domain")
-  .setDescription("Removes a domain from the domain list")
+  .setName("remove-blacklist")
+  .setDescription("Removes an email from the blacklist")
   .addStringOption((option) =>
-    option.setName("domain").setDescription("The name of the domain").setRequired(true),
+    option.setName("email").setDescription("The address of the email").setRequired(true),
   )
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
 async function execute(interaction: CommandInteraction, botUser: User) {
-  const domain = interaction.options.get("domain")?.value?.toString();
+  const email = interaction.options.get("email")?.value?.toString();
   const db = DiscordDatabase.getInstance();
 
-  if (domain) {
+  if (email) {
     try {
-      if (await db.getDomain(domain)) {
-        await db.deleteDomain(domain);
+      if (await db.getEmail(email)) {
+        await db.deleteEmail(email);
         return await interaction.reply({
           embeds: [
             generateEmbed(botUser)
-              .setTitle("Removed Domain")
+              .setTitle("Removed Email")
               .setDescription(
-                `The domain \`${domain}\` was successfully removed from the verified list.`,
+                `The email \`${email}\` was successfully removed from the blacklist.`,
               ),
           ],
         });
@@ -31,12 +31,12 @@ async function execute(interaction: CommandInteraction, botUser: User) {
       return await interaction.reply({
         embeds: [
           generateEmbed(botUser)
-            .setTitle("Domain Not Found")
-            .setDescription(`The domain \`${domain}\` was not found in the verified list.`),
+            .setTitle("Email Not Found")
+            .setDescription(`The email \`${email}\` was not found in the blacklist.`),
         ],
       });
     } catch (error) {
-      console.error(`Error removing domain ${domain}. Error: ${error}`);
+      console.error(`Error removing email ${email}. Error: ${error}`);
     }
   }
 
