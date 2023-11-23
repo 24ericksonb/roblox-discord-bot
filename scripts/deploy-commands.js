@@ -51,7 +51,7 @@ const rest = new REST().setToken(discordToken);
     });
 
     console.log(
-      `Successfully reloaded ${data.length} application (/) commands.`
+      `Successfully reloaded ${data.length} application (/) commands.\n`
     );
   } catch (error) {
     console.error(error);

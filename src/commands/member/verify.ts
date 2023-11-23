@@ -11,11 +11,20 @@ import { DiscordDatabase } from "../../database/database";
 import { generateEmbed, generateErrorEmbed, getRole } from "../../utils/discord";
 import { cleanUpPending, getExpireInMinutes } from "../../utils/database";
 import {
+  DEFAULT_UNI_ROLE,
   MAX_ATTEMPTS,
   NOT_VERIFIED_ROLE,
   VERIFIED_LOG_CHANNEL,
   VERIFIED_ROLE,
 } from "../../constants";
+import * as fs from "fs";
+import { getEmailDomain } from "../../utils/general";
+
+interface UniversityData {
+  [domain: string]: string;
+}
+
+const universityData: UniversityData = JSON.parse(fs.readFileSync("universities.json", "utf8"));
 
 const data = new SlashCommandBuilder()
   .setName("verify")
@@ -96,9 +105,13 @@ async function execute(interaction: CommandInteraction, botUser: User) {
         });
       }
 
+      const uniRoleName = universityData[getEmailDomain(pending.email)] ?? DEFAULT_UNI_ROLE;
+      const uniRole = await getRole(guild, uniRoleName);
+
       // process verification
       await db.deletePending(pending.id);
       await member.roles.add(verifiedRole);
+      await member.roles.add(uniRole);
       await member.roles.remove(notVerifedRole);
 
       // sends message to log channel

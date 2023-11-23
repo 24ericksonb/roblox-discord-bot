@@ -11,7 +11,6 @@ Last updated: **Nov 13th, 2023**
 ## Description
 
 `roblox-discord-bot` is a project aimed at streamlining the verification processes and other custom functionality in the offical Roblox Discord server. The bot is built using Node.js and TypeScript, and utilizes the Discord.js library for interacting with the Discord API.
-Here's a more professional and standardized version of the GitHub markdown documentation for the commands:
 
 ## Admin Commands
 
@@ -160,6 +159,7 @@ Completes the email verification process by verifying the code sent to the user'
 
 **Function:**
 - Assigns the `Verified` role to the user.
+- Assigns a University role based on the verified email's domain.
 - Removes the `Not Verified` role.
 - Records the verification event in a designated text channel.
 
@@ -203,7 +203,8 @@ Completes the email verification process by verifying the code sent to the user'
         "emailAddress": "REDACTED",
         "emailPassword": "REDACTED",
         "pendingExpirationInMinutes": 10,
-        "maxAttempts": 3
+        "maxAttempts": 3,
+        "defaultUniRole": "Other Univeristy"
     }
     ```
 
@@ -217,6 +218,7 @@ Completes the email verification process by verifying the code sent to the user'
     - `emailPassword`: The Gmail app password (instructions [here](https://support.google.com/mail/answer/185833?hl=en))
     - `pendingExpirationInMinutes`: The expiration time in minutes of verification code
     - `maxAttempts`: The maximum of invalid code attempts before the verification process is halted
+    - `defaultUniRole`: The default university role that will be given if the email domain doesn't match any domains in `universities.json`
 
 ### Usage
 
@@ -249,10 +251,6 @@ Completes the email verification process by verifying the code sent to the user'
     ```bash
     npm run sync
     ```
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 ## Author
 

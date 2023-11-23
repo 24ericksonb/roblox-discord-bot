@@ -10,13 +10,13 @@ const data = new SlashCommandBuilder()
 async function execute(interaction: CommandInteraction, botUser: User) {
   const domains = await getDomainList();
 
+  const description = domains
+    ? `The following domains are verified:\n\n${domains}`
+    : "There are currently no domains verified.";
+
   try {
     return await interaction.reply({
-      embeds: [
-        generateEmbed(botUser)
-          .setTitle("Verified Domains")
-          .setDescription(`The following domains are verified:\n\n${domains}`),
-      ],
+      embeds: [generateEmbed(botUser).setTitle("Verified Domains").setDescription(description)],
     });
   } catch (error) {
     console.error(`Error retrieving domains. Error: ${error}`);

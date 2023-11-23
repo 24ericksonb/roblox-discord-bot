@@ -16,6 +16,7 @@ export const MAX_ATTEMPTS = config.maxAttempts;
 
 export const VERIFIED_ROLE = "Verified";
 export const NOT_VERIFIED_ROLE = "Not Verified";
+export const DEFAULT_UNI_ROLE = config.defaultUniRole;
 
 export const EMAIL_ADDRESS = config.emailAddress;
 export const EMAIL_PASSWORD = config.emailPassword;
