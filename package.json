@@ -7,14 +7,14 @@
     "start": "npm run sync && node dist/index.js",
     "lint": "eslint 'src/**/*.{js,ts}'",
     "dev": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'npm run build && node dist/index.js'",
-    "build": "tsc && node scripts/clean-dist.js",
+    "build": "tsc && node scripts/clean-dist.js && node scripts/add-roles.js",
     "sync": "npm run build && node scripts/deploy-commands.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/24ericksonb/roblox-discord-bot.git"
   },
-  "author": "Bryce Erickson <berickson@roblox.com>",
+  "author": "Bryce Erickson <berickson@24ericksonb.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/24ericksonb/roblox-discord-bot/issues"

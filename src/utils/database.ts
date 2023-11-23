@@ -27,12 +27,12 @@ export async function cleanUpPending(): Promise<void> {
   }
 }
 
-export async function getDomainList(): Promise<string> {
+export async function getDomainList(): Promise<string | null> {
   const db = DiscordDatabase.getInstance();
   const domainList = await db.getDomains();
   return domainList.length > 0
     ? domainList.map((domainObj: Domain) => `\`${domainObj.domain}\``).join(", ")
-    : "None";
+    : null;
 }
 
 export async function getEmailList(): Promise<string> {

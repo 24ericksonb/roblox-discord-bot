@@ -112,13 +112,13 @@ async function execute(interaction: CommandInteraction, botUser: User) {
       if (!domainList.some((domain) => domainMatches(domain.domain, email))) {
         const domains = await getDomainList();
 
+        const description = domains ? `\n\nAccepted domains: ${domains}` : "";
+
         return await interaction.reply({
           embeds: [
             generateEmbed(botUser)
               .setTitle("Email Not Valid")
-              .setDescription(
-                `This email domain is not accepted for verification.\n\nAccepted domains: ${domains}`,
-              ),
+              .setDescription(`This email domain is not accepted for verification.${description}`),
           ],
           ephemeral: true,
         });
