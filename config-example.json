@@ -6,5 +6,6 @@
     "emailAddress": "REDACTED",
     "emailPassword": "REDACTED",
     "pendingExpirationInMinutes": 10,
-    "maxAttempts": 3
+    "maxAttempts": 3,
+    "defaultUniRole": "Other Univeristy"
 }
