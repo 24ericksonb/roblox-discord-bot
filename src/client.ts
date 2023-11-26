@@ -15,7 +15,7 @@ export default class CommandClient extends Client {
     this.handleCommands();
   }
 
-  private loadCommands() {
+  private loadCommands(): void {
     const foldersPath = path.join(__dirname, "commands");
     const commandFolders = fs.readdirSync(foldersPath);
 
@@ -33,7 +33,7 @@ export default class CommandClient extends Client {
     }
   }
 
-  private setStatus() {
+  private setStatus(): void {
     this.once(Events.ClientReady, () => {
       this.user?.setPresence({
         activities: [
@@ -47,7 +47,7 @@ export default class CommandClient extends Client {
     });
   }
 
-  private handleCommands() {
+  private handleCommands(): void {
     this.on(Events.InteractionCreate, async (interaction) => {
       const botUser = interaction.client.user;
 
