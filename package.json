@@ -14,8 +14,6 @@
     "type": "git",
     "url": "git+https://github.com/24ericksonb/roblox-discord-bot.git"
   },
-  "author": "Bryce Erickson <berickson@24ericksonb.com>",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/24ericksonb/roblox-discord-bot/issues"
   },
